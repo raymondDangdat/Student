@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic"/>
+
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Full Name "/>
+
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Email"/>
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"/>
+
+        <EditText
+            android:id="@+id/editTextCPassword"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Confirm Password "/>
+
+        <Button
+            android:layout_marginTop="16dp"
+            android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:text="Register"/>
+
+        <TextView
+            android:id="@+id/textviewLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Already Registered? Click"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic"/>
+
+    </LinearLayout>
+
+
+</ScrollView>

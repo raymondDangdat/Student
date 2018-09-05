@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+
+    <LinearLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            android:textStyle="italic"/>
+
+
+
+
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Email"/>
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"/>
+
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/buttonLogin"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:text="Login"/>
+
+        <TextView
+            android:id="@+id/textviewRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/yet_to_register_click"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            android:textStyle="italic"/>
+
+    </LinearLayout>
+
+
+</ScrollView>
