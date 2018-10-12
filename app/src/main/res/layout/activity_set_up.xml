@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/hostel"
     android:layout_height="match_parent"
     tools:context=".SetUpActivity">
 
@@ -23,7 +24,10 @@
 
         <EditText
             android:id="@+id/setUpUsername"
+            android:drawableLeft="@drawable/ic_account_box"
             android:layout_width="match_parent"
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="Username"
@@ -35,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Choose your faculty below"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -54,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/selectdepartment"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -73,7 +77,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/ic_account_box"
             android:hint="@string/studentname"
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
             android:inputType="text"
             android:maxLength="20" />
 
@@ -83,6 +90,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/enter_first_name"
+            android:drawableLeft="@drawable/ic_account_box"
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
             android:inputType="text" />
 
         <EditText
@@ -90,6 +100,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@drawable/edit_rounded"
+            android:drawableLeft="@drawable/ic_account_box"
+            android:padding="10dp"
             android:hint="@string/enter_last_name"
             android:inputType="text" />
 
@@ -98,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/select_your_gender"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -111,15 +124,36 @@
 
         </Spinner>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Level"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:entries="@array/level">
+
+        </Spinner>
+
+
 
         <EditText
             android:id="@+id/editTextMatriculation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/ic_info"
             android:hint="@string/studentmatricno"
             android:inputType="text"
             android:maxLength="19"
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
             android:textAllCaps="true" />
 
         <EditText
@@ -127,16 +161,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/ic_phone"
             android:hint="@string/enter_your_phone_number"
             android:inputType="phone"
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
             android:maxLength="11" />
 
         <EditText
             android:id="@+id/editTextEmergencyNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_phone"
             android:layout_marginTop="20dp"
             android:hint="@string/contact_number_incase_of_emergency"
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
             android:inputType="phone"
             android:maxLength="11" />
 
@@ -146,6 +186,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_email"
             android:hint="Email"
             android:inputType="textEmailAddress" />
 
@@ -154,6 +197,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@drawable/edit_rounded"
+            android:drawableLeft="@drawable/ic_lock"
+            android:padding="10dp"
             android:hint="Password"
             android:inputType="textPassword" />
 
@@ -161,18 +207,23 @@
             android:id="@+id/editTextCPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_lock"
             android:layout_marginTop="20dp"
             android:hint="Confirm Your Password"
-            android:inputType="textPassword" />
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            />
 
         <Button
             android:id="@+id/buttonUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="#0477bd"
+            android:background="@drawable/rounded_button"
             android:text="Register"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            />
 
         <TextView
             android:id="@+id/textViewSignIn"
@@ -181,7 +232,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/already_registered_sign_in_here"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

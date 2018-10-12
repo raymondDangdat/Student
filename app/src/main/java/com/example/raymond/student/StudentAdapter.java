@@ -41,6 +41,7 @@ public class StudentAdapter extends RecyclerView.Adapter <StudentAdapter.Student
         Picasso.with(mContext)
                 .load(uploadCurrent.getImage())
                 .fit()
+                .placeholder(R.drawable.ic_account1)
                 .centerCrop()
                 .into(holder.imageViewProfilePix);
 

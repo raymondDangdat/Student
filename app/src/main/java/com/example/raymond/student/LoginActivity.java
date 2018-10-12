@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -82,7 +83,10 @@ public class LoginActivity extends AppCompatActivity {
                 public void onSuccess(AuthResult authResult) {
 
                     //check if userExist in our database
-                    checkUserExist();
+                   // checkUserExist();
+
+                    //verify email
+                    checkEmailVerification();
 
 
                     mProgress.dismiss();
@@ -103,24 +107,40 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void checkUserExist() {
-        final String user_id = mAuth.getCurrentUser().getUid();
-        mDatabaseStudents.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(user_id)){
-                    startActivity(new Intent(LoginActivity.this, Profile.class));
-
-                }else{
-                    startActivity(new Intent(LoginActivity.this, SetUpActivity.class));
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+////    //check if user exist
+////    private void checkUserExist() {
+////        final String user_id = mAuth.getCurrentUser().getUid();
+////        mDatabaseStudents.addValueEventListener(new ValueEventListener() {
+////            @Override
+////            public void onDataChange(DataSnapshot dataSnapshot) {
+////                if (dataSnapshot.hasChild(user_id)){
+////                    startActivity(new Intent(LoginActivity.this, Profile.class));
+////
+////                }else{
+////                    startActivity(new Intent(LoginActivity.this, SetUpActivity.class));
+////                }
+////
+////            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
+//
+//
+    //verify email before login
+    private void checkEmailVerification(){
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        Boolean emailFlag = firebaseUser.isEmailVerified();
+        if (emailFlag){
+            finish();
+            startActivity(new Intent(LoginActivity.this, Profile.class));
+        }else {
+            //user has to verify email
+            Toast.makeText(this, "Verify your email first", Toast.LENGTH_SHORT).show();
+            mAuth.signOut();
+        }
     }
 }

@@ -9,12 +9,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/image_view_profile"
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:id="@+id/image_view_profile"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_account1" />
+            android:src="@drawable/ic_account1"/>
+
+
+        <!--<ImageView-->
+            <!--android:id="@+id/image_view_profil"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="300dp"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/ic_account1" />-->
 
         <LinearLayout
             android:layout_width="wrap_content"

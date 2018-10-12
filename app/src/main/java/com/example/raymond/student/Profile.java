@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +21,7 @@ public class Profile extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseStudents;
     private Button btnViewUsers;
-    private Button btnApplyRoom;
+    private Button btnApplyRoom, btnHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class Profile extends AppCompatActivity {
 
         btnApplyRoom = findViewById(R.id.applyRoom);
         btnViewUsers = findViewById(R.id.buttonViewUsers);
+        btnHome = findViewById(R.id.home);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -50,6 +52,13 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Profile.this, ApplyRoomActivity.class));
+            }
+        });
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, Home.class));
             }
         });
     }

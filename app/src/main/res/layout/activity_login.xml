@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/hostel"
     tools:context=".LoginActivity">
 
 
     <LinearLayout
         android:layout_margin="16dp"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
@@ -19,8 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/colorPrimary"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginTop="25dp"
+            android:textColor="@android:color/white"
             android:textAlignment="center"
             android:textStyle="italic"/>
 
@@ -33,15 +36,24 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="raymonddangdat@gmail.com"
             android:inputType="textEmailAddress"
+            android:drawableLeft="@drawable/ic_email"
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
             android:hint="Email"/>
 
         <EditText
             android:id="@+id/editTextPassword"
+            android:drawableLeft="@drawable/ic_lock"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="smart001"
             android:inputType="textPassword"
+            android:background="@drawable/edit_rounded"
+            android:padding="10dp"
+
             android:hint="Password"/>
 
 
@@ -49,7 +61,7 @@
             android:layout_marginTop="20dp"
             android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/rounded_button"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:layout_height="wrap_content"
@@ -60,12 +72,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/yet_to_register_click"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="25dp"
+            android:textColor="@android:color/white"
             android:textAlignment="center"
             android:textStyle="italic"/>
 
     </LinearLayout>
 
 
-</ScrollView>
+</RelativeLayout>

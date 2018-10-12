@@ -29,6 +29,14 @@
             android:background="@color/colorPrimary"
             android:text="View Available Rooms"
             android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorPrimary"
+            android:text="New home"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 </RelativeLayout>

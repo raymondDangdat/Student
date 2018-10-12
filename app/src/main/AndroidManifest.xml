@@ -27,7 +27,11 @@
         <activity android:name=".Profile" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ViewUsersActivity" />
-        <activity android:name=".ApplyRoomActivity"></activity>
+        <activity android:name=".ApplyRoomActivity" />
+        <activity
+            android:name=".Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

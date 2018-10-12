@@ -4,7 +4,7 @@
     <string name="studentname">Enter Surname</string>
     <string name="studentmatricno">Matriculation or JAMB Number</string>
     <string name="enter_your_phone_number">Enter Your Phone Number</string>
-    <string name="contact_number_incase_of_emergency">Contact Number In case Of Emergency</string>
+    <string name="contact_number_incase_of_emergency">Parent Contact</string>
     <string name="already_registered_sign_in_here">Already Registered? Sign In Here</string>
     <string name="enter_your_password3">Enter Your Password</string>
     <string name="enter_first_name">Enter First Name</string>
@@ -16,6 +16,14 @@
         <item>Female</item>
         <item>Male</item>
     </string-array>
+
+    <string-array name="level">
+        <item>100</item>
+        <item>200/DE</item>
+        <item>300</item>
+        <item>400</item>
+    </string-array>
+
     <string-array name="departments">
         <item>Accounting</item>
         <item>Biochemistry</item>
@@ -41,4 +49,11 @@
         <item>Natural And Applied Science</item>
         <item>Social Science</item>
     </string-array>
+    <string name="title_activity_home">Home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>
