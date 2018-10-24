@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.raymond.student.Common.Common;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -136,7 +137,8 @@ public class LoginActivity extends AppCompatActivity {
         Boolean emailFlag = firebaseUser.isEmailVerified();
         if (emailFlag){
             finish();
-            startActivity(new Intent(LoginActivity.this, Profile.class));
+            //Intent loginIntent = new Intent(LoginActivity.this, Profile.class);
+            startActivity(new Intent(LoginActivity.this, Home.class));
         }else {
             //user has to verify email
             Toast.makeText(this, "Verify your email first", Toast.LENGTH_SHORT).show();
