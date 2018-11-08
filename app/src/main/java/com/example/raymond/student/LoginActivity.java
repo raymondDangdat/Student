@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.raymond.student.Common.Common;
+import com.example.raymond.student.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -73,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkLogin() {
-        mProgress.setMessage("Processing...");
-        String email = mEmail.getText().toString().trim();
+        mProgress.setMessage("Logging in...");
+        final String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
@@ -137,6 +138,19 @@ public class LoginActivity extends AppCompatActivity {
         Boolean emailFlag = firebaseUser.isEmailVerified();
         if (emailFlag){
             finish();
+
+//
+//            databaseReferenceUser.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
             //Intent loginIntent = new Intent(LoginActivity.this, Profile.class);
             startActivity(new Intent(LoginActivity.this, Home.class));
         }else {

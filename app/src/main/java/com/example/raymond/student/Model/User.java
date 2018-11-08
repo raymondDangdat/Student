@@ -4,16 +4,26 @@ public class User {
     private String Name;
     private String Password;
     private String Phone;
+    private String Surname;
     private String Email;
 
     public User() {
     }
 
-    public User(String name, String password, String phone, String email) {
+    public User(String name, String password, String phone, String surname, String email) {
         Name = name;
         Password = password;
         Phone = phone;
         Email = email;
+        Surname = surname;
+    }
+
+    public String getSurname() {
+        return Surname;
+    }
+
+    public void setSurname(String surname) {
+        Surname = surname;
     }
 
     public String getName() {

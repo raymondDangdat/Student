@@ -13,16 +13,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseDatabase database;
     private DatabaseReference students;
     private FirebaseAuth mAuth;
+    private TextView fullName, email;
+    private ImageView imgProfile;
+
+    private FirebaseUser currentUser;
+    String uId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +49,10 @@ public class Home extends AppCompatActivity
         students.keepSynced(true);
 
         mAuth = FirebaseAuth.getInstance();
+
+        uId = mAuth.getUid();
+
+        final FirebaseUser user = mAuth.getCurrentUser();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +69,46 @@ public class Home extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
+        students.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                View headerView = navigationView.getHeaderView(0);
+                email = headerView.findViewById(R.id.email);
+                email.setText(user.getEmail());
+                fullName = headerView.findViewById(R.id.fullName);
+//                fullName.setText(dataSnapshot.child(uId).child("surname").getValue(String.class));
+                String surname = dataSnapshot.child(uId).child("surname").getValue(String.class);
+                String firstName = dataSnapshot.child(uId).child("firstName").getValue(String.class);
+                String lastName = dataSnapshot.child(uId).child("lastName").getValue(String.class);
+
+                fullName.setText(surname + " " + firstName + " " + lastName);
+
+                imgProfile = headerView.findViewById(R.id.image_view_profile);
+                String profileUri = dataSnapshot.child(uId).child("image").getValue(String.class);
+                Picasso.with(getBaseContext()).load(profileUri)
+                        .into(imgProfile);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //set name for the user
+        View headerView = navigationView.getHeaderView(0);
+        email = headerView.findViewById(R.id.email);
+        email.setText(user.getEmail());
+        fullName = headerView.findViewById(R.id.fullName);
+
+
+
+
     }
 
     @Override
@@ -98,14 +152,41 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_users) {
             // Handle the camera action
         } else if (id == R.id.nav_apply) {
-            Intent applIntent = new Intent(Home.this, BoysChalets.class);
-            startActivity(applIntent);
+            //run a check for the gender of the current user
+            students.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
+
+                    if (gender.equals("Male")){
+                        Intent applIntent = new Intent(Home.this, BoysChalets.class);
+                        startActivity(applIntent);
+
+                    }else{
+                        Intent applIntent = new Intent(Home.this, GirlsChalets.class);
+                        startActivity(applIntent);
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
 
         } else if (id == R.id.nav_rules) {
 
         } else if (id == R.id.nav_settings) {
 
-        } else if (id == R.id.nav_share) {
+        }else if(id == R.id.nav_chat){
+            startActivity(new Intent(Home.this, ChatActivity.class));
+
+        }else if (id == R.id.nav_chat2){
+            startActivity(new Intent(Home.this, PlasuChat.class));
+        }else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
             mAuth.getCurrentUser();

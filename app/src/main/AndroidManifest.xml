@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SetUpActivity">
+        <activity android:name=".ChatLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +23,7 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".SetUpActivity" />
         <activity android:name=".Profile" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ViewUsersActivity" />
@@ -33,7 +33,20 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
         <activity android:name=".BoysChalets" />
-        <activity android:name=".BoysRoomsList"></activity>
+        <activity android:name=".BoysRoomsList" />
+        <activity android:name=".BoysRoomDetail" />
+        <activity android:name=".BoysRoomApplication" />
+        <activity android:name=".GirlsChalets" />
+        <activity android:name=".GirlsRoomsList" />
+        <activity android:name=".GirlsRoomDetail" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".RemoveRoomActivity" />
+        <activity android:name=".PlasuChat" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ChatRegisterActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".GroupChatActivity" />
+        <activity android:name=".PhoneLoginActivity"></activity>
     </application>
 
 </manifest>

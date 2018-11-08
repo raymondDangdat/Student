@@ -71,7 +71,7 @@ public class Profile extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_logout);
+        if (item.getItemId() == R.id.action_signout);
         mAuth.signOut();
         startActivity(new Intent(this, LoginActivity.class));
         return super.onOptionsItemSelected(item);

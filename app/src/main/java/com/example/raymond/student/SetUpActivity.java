@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 public class SetUpActivity extends AppCompatActivity {
     private EditText setUName;
     private Button setUpUpdate;
-    private ImageButton setUpProfileImage;
+    private ImageView setUpProfileImage;
     private Spinner mFaculty;
     private Spinner mDepartment;
     private EditText editTextSname;

@@ -1,16 +1,24 @@
 package com.example.raymond.student.Model;
 
 public class BoysRooms {
-    private  String BedNumber, Room, Image, RoomDescription;
+    private  String BedNumber, Room, Image, Status, RoomDescription;
 
     public BoysRooms() {
     }
 
-    public BoysRooms(String bedNumber, String room, String image, String roomDescription) {
+    public BoysRooms(String bedNumber, String room, String image, String status, String roomDescription) {
         BedNumber = bedNumber;
         Room = room;
         Image = image;
         RoomDescription = roomDescription;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
     }
 
     public String getBedNumber() {

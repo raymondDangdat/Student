@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/hostel"
+    android:background="@drawable/apply"
     android:layout_height="match_parent"
     tools:context=".SetUpActivity">
 
@@ -13,14 +13,21 @@
         android:layout_margin="16dp"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/setUpImageButton"
-            android:layout_width="200dp"
+        <!--<ImageButton-->
+            <!--android:id="@+id/setUpImageButton"-->
+            <!--android:layout_width="200dp"-->
+            <!--android:layout_height="200dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:background="@android:color/white"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/ic_account1" />-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/white"
+            android:id="@+id/setUpImageButton"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_account1" />
+            android:src="@drawable/ic_account"/>
 
         <EditText
             android:id="@+id/setUpUsername"
