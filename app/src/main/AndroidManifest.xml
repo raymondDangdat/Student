@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatLoginActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,14 +39,21 @@
         <activity android:name=".GirlsChalets" />
         <activity android:name=".GirlsRoomsList" />
         <activity android:name=".GirlsRoomDetail" />
-        <activity android:name=".ChatActivity" />
         <activity android:name=".RemoveRoomActivity" />
         <activity android:name=".PlasuChat" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".ChatLoginActivity" />
         <activity android:name=".ChatRegisterActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".PlasuChat" />
         <activity android:name=".GroupChatActivity" />
-        <activity android:name=".PhoneLoginActivity"></activity>
+        <activity android:name=".PhoneLoginActivity" />
+        <activity
+            android:name=".FindFriendsActivity"
+            android:parentActivityName=".PlasuChat" />
+        <activity android:name=".ChatProfileActivity" />
+        <activity android:name=".PrivateChatActivity"
+            android:parentActivityName=".PlasuChat"></activity>
     </application>
 
 </manifest>

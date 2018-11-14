@@ -245,10 +245,9 @@ public class SetUpActivity extends AppCompatActivity {
 
                                 mDatabaseStudents.child(user_id).child("image").setValue(downloadUrl);
                                 mProgress.dismiss();
-                                Toast.makeText(SetUpActivity.this, "You have successfully updated your profile", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SetUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(SetUpActivity.this, LoginActivity.class));
                                 sendEmailVerification();
-
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -270,25 +269,7 @@ public class SetUpActivity extends AppCompatActivity {
 
                     }
                 });
-//                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-//                    @Override
-//                    public void onSuccess(AuthResult authResult) {
-//                        String user_id = mAuth.getCurrentUser().getUid();
-//                        DatabaseReference current_user =  mDatabaseStudents.child(user_id);
-//                        current_user.child("name").setValue(Surname);
-//                        current_user.child("image").setValue("default for now");
-//                        mProgress.dismiss();
-//                        Toast.makeText(SetUpActivity.this, "Registration successful you can proceed to login", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        mProgress.dismiss();
-//                        Toast.makeText(SetUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                });
+
             }else {
                 Toast.makeText(this, "Password miss match", Toast.LENGTH_SHORT).show();
             }

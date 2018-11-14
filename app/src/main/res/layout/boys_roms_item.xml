@@ -16,33 +16,46 @@
             android:src="@drawable/hostel"
             android:scaleType="centerCrop" />
         <LinearLayout
-            android:weightSum="2"
+            android:weightSum="5"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_margin="8dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtRoomDescription"
                 android:text="Room Description"
                 android:textColor="@android:color/white"
                 android:background="#4f0e0d0e"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:gravity="center"
                 android:layout_alignParentBottom="true"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_margin="8dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtBedNumber"
                 android:text="Bed Number"
                 android:textColor="@android:color/white"
                 android:background="#4f0e0d0e"
-                android:textSize="20sp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtStatus"
+                android:text="Available"
+                android:textColor="@android:color/white"
+                android:background="#4f0e0d0e"
+                android:textSize="15sp"
                 android:gravity="center"
                 android:layout_alignParentBottom="true"/>
 

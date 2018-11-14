@@ -1,19 +1,25 @@
 package com.example.raymond.student;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.raymond.student.Interface.ItemClickListener;
 import com.example.raymond.student.Model.BoysRooms;
 import com.example.raymond.student.ViewHolder.BoysRoomViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +39,7 @@ public class BoysRoomsList extends AppCompatActivity {
     private DatabaseReference boysRooms;
     
     String chaletId = "";
-    private FirebaseRecyclerAdapter<BoysRooms, BoysRoomViewHolder> adapter;
+    private FirebaseRecyclerAdapter<BoysRooms, BoysRooomViewHolder> adapter;
 
 
 
@@ -56,13 +62,14 @@ public class BoysRoomsList extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        
+
         //get intent here
         if (getIntent() != null)
             chaletId = getIntent().getStringExtra("chaletId");
         if (!chaletId.isEmpty() &&  chaletId != null){
             loadListRoom(chaletId);
         }
+
         materialSearchBar = findViewById(R.id.searchBar);
         loadSuggest();
         materialSearchBar.setLastSuggestions(suggestList);
@@ -120,32 +127,40 @@ public class BoysRoomsList extends AppCompatActivity {
     }
 
     private void startSearch(CharSequence text) {
-        searchAdapter = new FirebaseRecyclerAdapter<BoysRooms, BoysRoomViewHolder>(
-                BoysRooms.class,
-                R.layout.boys_roms_item,
-                BoysRoomViewHolder.class,
-                boysRooms.orderByChild("roomDescription").equalTo(text.toString())
-
-        ) {
+        FirebaseRecyclerOptions<BoysRooms> options = new
+                FirebaseRecyclerOptions.Builder<BoysRooms>()
+                .setQuery(boysRooms.orderByChild("roomDescription").equalTo(text.toString()), BoysRooms.class)
+                .build();
+        searchAdapter = new FirebaseRecyclerAdapter<BoysRooms, BoysRoomViewHolder>(options) {
             @Override
-            protected void populateViewHolder(BoysRoomViewHolder viewHolder, BoysRooms model, int position) {
-                viewHolder.txtRoomDescription.setText(model.getRoomDescription());
-                viewHolder.txtBedNumber.setText(model.getBedNumber());
-                Picasso.with(getBaseContext()).load(model.getImage())
-                        .into(viewHolder.imageView);
+            protected void onBindViewHolder(@NonNull BoysRoomViewHolder holder, int position, @NonNull BoysRooms model) {
+                holder.txtRoomDescription.setText(model.getRoomDescription());
+                holder.txtBedNumber.setText(model.getBedNumber());
+                Picasso.get().load(model.getImage()).into(holder.imageView);
 
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                        Intent roomDetail = new Intent(BoysRoomsList.this, BoysRoomDetail.class);
+               holder.setItemClickListener(new ItemClickListener() {
+                   @Override
+                   public void onClick(View view, int position, boolean isLongClick) {
+                       Intent roomDetail = new Intent(BoysRoomsList.this, BoysRoomDetail.class);
                         roomDetail.putExtra("roomId", searchAdapter.getRef(position).getKey()); //send room id to new activity
                         startActivity(roomDetail);
-                    }
-                });
+
+                   }
+               });
 
             }
+
+            @NonNull
+            @Override
+            public BoysRoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.boys_roms_item, parent, false);
+                BoysRoomViewHolder viewHolder = new BoysRoomViewHolder(view);
+                return viewHolder;
+            }
         };
+
         recyclerView.setAdapter(searchAdapter);
+        searchAdapter.startListening();
     }
 
     private void loadSuggest() {
@@ -166,35 +181,74 @@ public class BoysRoomsList extends AppCompatActivity {
     }
 
     private void loadListRoom(String chaletId) {
-        adapter = new FirebaseRecyclerAdapter<BoysRooms, BoysRoomViewHolder>(
-                BoysRooms.class,
-                R.layout.boys_roms_item,
-                BoysRoomViewHolder.class,
-                boysRooms.orderByChild("room").equalTo(chaletId) //compare the name to the chaletId intent
-                //like select * from table where name = chaletId
-        ) {
+        FirebaseRecyclerOptions<BoysRooms> options =
+                new FirebaseRecyclerOptions.Builder<BoysRooms>()
+                .setQuery(boysRooms.orderByChild("room").equalTo(chaletId), BoysRooms.class)
+                .build();
+        adapter = new FirebaseRecyclerAdapter<BoysRooms, BoysRooomViewHolder>(options) {
             @Override
-            protected void populateViewHolder(BoysRoomViewHolder viewHolder, BoysRooms model, int position) {
-                viewHolder.txtRoomDescription.setText(model.getRoomDescription());
-                viewHolder.txtBedNumber.setText(model.getBedNumber());
-                Picasso.with(getBaseContext()).load(model.getImage())
-                .into(viewHolder.imageView);
+            protected void onBindViewHolder(@NonNull BoysRooomViewHolder holder, int position, @NonNull BoysRooms model) {
+                holder.txtRoomDescription.setText(model.getRoomDescription());
+                holder.txtBedNumber.setText(model.getBedNumber());
+                holder.txtStatus.setText(model.getStatus());
+                Picasso.get().load(model.getImage()).placeholder(R.drawable.hostel).into(holder.imageView);
 
-                final BoysRooms local = model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
+                holder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        //start new activity
                         Intent roomDetail = new Intent(BoysRoomsList.this, BoysRoomDetail.class);
-                        roomDetail.putExtra("roomId", adapter.getRef(position).getKey()); //send room id to new activity
+                        roomDetail.putExtra("roomId", adapter.getRef(position).getKey()); //send room id to new activitystartActivity(roomDetail);
                         startActivity(roomDetail);
+
                     }
                 });
+
+            }
+
+            @NonNull
+            @Override
+            public BoysRooomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.boys_roms_item, parent, false);
+                BoysRooomViewHolder viewHolder = new BoysRooomViewHolder(view);
+                return viewHolder;
+
             }
         };
+
         //set adapter
         recyclerView.setAdapter(adapter);
+        adapter.startListening();
 
+    }
+
+    public static class BoysRooomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public TextView txtRoomDescription, txtBedNumber, txtStatus;
+        public ImageView imageView;
+
+        private ItemClickListener itemClickListener;
+
+        public BoysRooomViewHolder(View itemView) {
+            super(itemView);
+            txtRoomDescription = itemView.findViewById(R.id.txtRoomDescription);
+            txtBedNumber = itemView.findViewById(R.id.txtBedNumber);
+            imageView = itemView.findViewById(R.id.imageViewRoom);
+            txtStatus = itemView.findViewById(R.id.txtStatus);
+
+
+            itemView.setOnClickListener(this);
+        }
+
+        public void setItemClickListener(ItemClickListener itemClickListener) {
+            this.itemClickListener = itemClickListener;
+        }
+
+
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v, getAdapterPosition(), false);
+
+        }
     }
 
 

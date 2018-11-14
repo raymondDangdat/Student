@@ -6,14 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/settings_tool_bar">
+
+    </include>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/set_profile_image"
         app:civ_border_width="5dp"
         app:civ_border_color="@color/colorPrimary"
-        android:src="@drawable/ic_account"
+        android:src="@drawable/profile_image"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="90dp"
         android:layout_width="250dp"
         android:layout_height="250dp" />
     <EditText
@@ -42,7 +48,7 @@
         android:inputType="textMultiLine"
         android:hint="User status e.g hey talk to Smart..."
         android:textAlignment="center"
-        android:drawableStart="@drawable/ic_av_timer_black"
+        android:drawableStart="@drawable/edit_status"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         android:background="@drawable/edit_rounded"

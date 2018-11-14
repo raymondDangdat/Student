@@ -10,7 +10,7 @@ import com.example.raymond.student.R;
 
 public class GirlsRoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView txtRoomDescription, txtBedNumber;
+    public TextView txtRoomDescription, txtBedNumber, txtStatus;
     public ImageView imageView;
 
     private ItemClickListener itemClickListener;
@@ -23,6 +23,7 @@ public class GirlsRoomViewHolder extends RecyclerView.ViewHolder implements View
         super(itemView);
         txtRoomDescription = itemView.findViewById(R.id.txtRoomDescription);
         txtBedNumber = itemView.findViewById(R.id.txtBedNumber);
+        txtStatus = itemView.findViewById(R.id.txtStatus);
         imageView = itemView.findViewById(R.id.imageViewRoom);
 
         itemView.setOnClickListener(this);

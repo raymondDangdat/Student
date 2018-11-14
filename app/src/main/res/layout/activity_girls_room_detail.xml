@@ -105,6 +105,32 @@
                         android:textSize="14sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:padding="20dp"
+                        android:layout_width="match_parent"
+                        android:weightSum="2"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Status: "/>
+
+                        <TextView
+                            android:id="@+id/status"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:text="Occupied"/>
+                    </LinearLayout>
+
+
+
                     <Button
                         android:id="@+id/btnApply1"
                         android:layout_width="match_parent"

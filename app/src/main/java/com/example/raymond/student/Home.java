@@ -40,15 +40,20 @@ public class Home extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mAuth = FirebaseAuth.getInstance();
+        String userEmail = mAuth.getCurrentUser().getEmail();
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Profile");
+        toolbar.setTitle("Welcome " + userEmail );
         setSupportActionBar(toolbar);
 
         database = FirebaseDatabase.getInstance();
         students = database.getReference("Students");
         students.keepSynced(true);
 
-        mAuth = FirebaseAuth.getInstance();
+
 
         uId = mAuth.getUid();
 
@@ -91,8 +96,9 @@ public class Home extends AppCompatActivity
 
                 imgProfile = headerView.findViewById(R.id.image_view_profile);
                 String profileUri = dataSnapshot.child(uId).child("image").getValue(String.class);
-                Picasso.with(getBaseContext()).load(profileUri)
-                        .into(imgProfile);
+                Picasso.get().load(profileUri).into(imgProfile);
+//                Picasso.with(getBaseContext()).load(profileUri)
+//                        .into(imgProfile);
             }
 
             @Override
@@ -182,7 +188,7 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         }else if(id == R.id.nav_chat){
-            startActivity(new Intent(Home.this, ChatActivity.class));
+            //startActivity(new Intent(Home.this, ChatActivity.class));
 
         }else if (id == R.id.nav_chat2){
             startActivity(new Intent(Home.this, PlasuChat.class));

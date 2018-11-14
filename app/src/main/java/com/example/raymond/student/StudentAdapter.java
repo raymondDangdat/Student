@@ -38,12 +38,13 @@ public class StudentAdapter extends RecyclerView.Adapter <StudentAdapter.Student
         holder.textViewGender.setText(uploadCurrent.getGender());
         holder.textViewEmail.setText(uploadCurrent.getEmail());
         holder.textViewDepartment.setText(uploadCurrent.getDepartment());
-        Picasso.with(mContext)
-                .load(uploadCurrent.getImage())
-                .fit()
-                .placeholder(R.drawable.ic_account1)
-                .centerCrop()
-                .into(holder.imageViewProfilePix);
+        Picasso.get().load(uploadCurrent.getImage()).fit().placeholder(R.drawable.ic_account1).centerCrop().into(holder.imageViewProfilePix);
+//        Picasso.with(mContext)
+//                .load(uploadCurrent.getImage())
+//                .fit()
+//                .placeholder(R.drawable.ic_account1)
+//                .centerCrop()
+//                .into(holder.imageViewProfilePix);
 
     }
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_find_friends_option"
+        android:id="@+id/action_find_friends"
         android:title="Find Friends"
         android:icon="@drawable/ic_action_search"
         app:showAsAction="never"

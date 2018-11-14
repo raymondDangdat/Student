@@ -81,14 +81,11 @@ public class PlasuChat extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("name").exists())){
-                    Toast.makeText(PlasuChat.this, "Welcome", Toast.LENGTH_SHORT).show();
 
                 }else {
                     //send the user to settings activity
                     Intent settingsIntent = new Intent(PlasuChat.this, SettingsActivity.class);
-                    settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(settingsIntent);
-                    finish();
                 }
             }
 
@@ -121,7 +118,8 @@ public class PlasuChat extends AppCompatActivity {
             mAuth.signOut();
             sendUserToChatLoginActivity();
 
-        }else if (item.getItemId() == R.id.action_find_friends_option){
+        }else if (item.getItemId() == R.id.action_find_friends){
+            startActivity(new Intent(PlasuChat.this, FindFriendsActivity.class));
 
         }else if (item.getItemId() == R.id.action_settings){
             Intent settingsIntent = new Intent(PlasuChat.this, SettingsActivity.class);
@@ -130,6 +128,9 @@ public class PlasuChat extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.action_create_group){
             requestNewGruop();
+
+        }else if (item.getItemId() == R.id.action_find_friends){
+            startActivity(new Intent(PlasuChat.this, FindFriendsActivity.class));
 
         }
         return true;

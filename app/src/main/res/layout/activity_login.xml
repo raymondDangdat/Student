@@ -53,7 +53,6 @@
             android:inputType="textPassword"
             android:background="@drawable/edit_rounded"
             android:padding="10dp"
-
             android:hint="Password"/>
 
 
@@ -64,6 +63,7 @@
             android:background="@drawable/rounded_button"
             android:textColor="@android:color/white"
             android:textSize="20sp"
+            android:textAllCaps="false"
             android:layout_height="wrap_content"
             android:text="Login"/>
 
