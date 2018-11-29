@@ -7,12 +7,18 @@
     android:background="@drawable/hostel"
     tools:context=".GirlsRoomsList">
 
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/girlsRoom_tool_bar">
+
+    </include>
+
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchBar"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/girlsRoom_tool_bar"
         app:mt_speechMode="false"
         app:mt_hint="Enter room name"
         />

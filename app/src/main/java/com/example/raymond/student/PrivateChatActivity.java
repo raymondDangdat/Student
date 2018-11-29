@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class PrivateChatActivity extends AppCompatActivity {
     private String messagereceiverID, messageReceiverName, messageReceiverImage, messageSenderId;
@@ -189,7 +190,7 @@ public class PrivateChatActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()){
                     }else {
-                        Toast.makeText(PrivateChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        Toasty.error(PrivateChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                     //clear editText field
                     messageInputText.setText("");

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class GirlsChalets extends AppCompatActivity {
     private RecyclerView recyclerView_girls_chalets;
     RecyclerView.LayoutManager layoutManager;
 
+    private Toolbar chaletToolBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,15 @@ public class GirlsChalets extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView_girls_chalets.setLayoutManager(layoutManager);
 
-        //loadChalets();
+
+        //initialize our toolBar
+        chaletToolBar = findViewById(R.id.girlChalet_tool_bar);
+        setSupportActionBar(chaletToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Girls Chalets");
+
+
     }
 
 

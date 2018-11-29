@@ -32,15 +32,29 @@
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
-        <activity android:name=".BoysChalets" />
-        <activity android:name=".BoysRoomsList" />
-        <activity android:name=".BoysRoomDetail" />
+        <activity
+            android:name=".BoysChalets"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".BoysRoomsList"
+            android:parentActivityName=".BoysChalets" />
+        <activity
+            android:name=".BoysRoomDetail"
+            android:parentActivityName=".BoysRoomsList" />
         <activity android:name=".BoysRoomApplication" />
-        <activity android:name=".GirlsChalets" />
-        <activity android:name=".GirlsRoomsList" />
-        <activity android:name=".GirlsRoomDetail" />
+        <activity
+            android:name=".GirlsChalets"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".GirlsRoomsList"
+            android:parentActivityName=".GirlsChalets" />
+        <activity
+            android:name=".GirlsRoomDetail"
+            android:parentActivityName=".GirlsRoomsList" />
         <activity android:name=".RemoveRoomActivity" />
-        <activity android:name=".PlasuChat" />
+        <activity
+            android:name=".PlasuChat"
+            android:parentActivityName=".Home" />
         <activity android:name=".ChatLoginActivity" />
         <activity android:name=".ChatRegisterActivity" />
         <activity
@@ -52,8 +66,16 @@
             android:name=".FindFriendsActivity"
             android:parentActivityName=".PlasuChat" />
         <activity android:name=".ChatProfileActivity" />
-        <activity android:name=".PrivateChatActivity"
-            android:parentActivityName=".PlasuChat"></activity>
+        <activity
+            android:name=".PrivateChatActivity"
+            android:parentActivityName=".PlasuChat" />
+        <activity
+            android:name=".AccommodationStatusActivity"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".Roommates"
+            android:parentActivityName=".Home" />
+        <activity android:name=".JambValidity"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ public class BoysRoomsList extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference boysRooms;
+
+    private Toolbar roomToolBar;
     
     String chaletId = "";
     private FirebaseRecyclerAdapter<BoysRooms, BoysRooomViewHolder> adapter;
@@ -62,6 +65,14 @@ public class BoysRoomsList extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+
+        //initialize our toolBar
+        roomToolBar = findViewById(R.id.boysRoom_tool_bar);
+        setSupportActionBar(roomToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Boys Rooms");
 
         //get intent here
         if (getIntent() != null)
@@ -180,7 +191,7 @@ public class BoysRoomsList extends AppCompatActivity {
         });
     }
 
-    private void loadListRoom(String chaletId) {
+    private void loadListRoom(final String chaletId) {
         FirebaseRecyclerOptions<BoysRooms> options =
                 new FirebaseRecyclerOptions.Builder<BoysRooms>()
                 .setQuery(boysRooms.orderByChild("room").equalTo(chaletId), BoysRooms.class)
@@ -197,7 +208,8 @@ public class BoysRoomsList extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
                         Intent roomDetail = new Intent(BoysRoomsList.this, BoysRoomDetail.class);
-                        roomDetail.putExtra("roomId", adapter.getRef(position).getKey()); //send room id to new activitystartActivity(roomDetail);
+                        roomDetail.putExtra("roomId", adapter.getRef(position).getKey());//send room id to new activitystartActivity(roomDetail);
+                        roomDetail.putExtra("chaletId",chaletId );
                         startActivity(roomDetail);
 
                     }

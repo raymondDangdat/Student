@@ -37,12 +37,17 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
 
     implementation 'com.github.mancj:MaterialSearchBar:0.7.1'
     implementation 'com.github.bumptech.glide:glide:4.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
     implementation 'com.firebaseui:firebase-ui-database:3.2.2'
 //    implementation 'com.firebaseui:firebase-ui-database:0.4.0'
+
+    //fancy toast messages
+    implementation 'com.github.GrenderG:Toasty:1.2.5'
 
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'

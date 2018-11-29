@@ -34,15 +34,14 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import es.dmoral.toasty.Toasty;
+
 public class SetUpActivity extends AppCompatActivity {
-    private EditText setUName;
+    private EditText fullName;
     private Button setUpUpdate;
     private ImageView setUpProfileImage;
     private Spinner mFaculty;
     private Spinner mDepartment;
-    private EditText editTextSname;
-    private EditText editTextFname;
-    private EditText editTextLname;
     private Spinner spinnerGender;
     private EditText editTextMatriculation;
     private EditText editTextPhone;
@@ -84,15 +83,12 @@ public class SetUpActivity extends AppCompatActivity {
         mStorageImage = FirebaseStorage.getInstance().getReference().child("StudentsProfile");
 
 
-        setUName = findViewById(R.id.setUpUsername);
+        fullName = findViewById(R.id.editTextFullName);
         setUpUpdate = findViewById(R.id.buttonUpdate);
         setUpProfileImage = findViewById(R.id.setUpImageButton);
         textViewSignIn = findViewById(R.id.textViewSignIn);
         mFaculty = findViewById(R.id.faculty);
         mDepartment = findViewById(R.id.department);
-        editTextFname = findViewById(R.id.editTextFname);
-        editTextSname = findViewById(R.id.editTextname);
-        editTextLname = findViewById(R.id.editTextLname);
         spinnerGender = findViewById(R.id.gender);
         editTextMatriculation = findViewById(R.id.editTextMatriculation);
         editTextPhone = findViewById(R.id.phone);
@@ -133,7 +129,7 @@ public class SetUpActivity extends AppCompatActivity {
 
     private void startSetUpAccount() {
         mProgress.setMessage("Updating...");
-       final String name = setUName.getText().toString().trim();
+       final String name = fullName.getText().toString().trim();
        final String user_id = mAuth.getCurrentUser().getUid();
         if (!TextUtils.isEmpty(name) && mImageUri !=null){
             mProgress.show();
@@ -147,7 +143,7 @@ public class SetUpActivity extends AppCompatActivity {
                     mDatabaseStudents.child(user_id).child("name").setValue(name);
                     mDatabaseStudents.child(user_id).child("image").setValue(downloadUrl);
                     mProgress.dismiss();
-                    Toast.makeText(SetUpActivity.this, "You have successfully updated your profile", Toast.LENGTH_SHORT).show();
+                    Toasty.success(SetUpActivity.this, "You have successfully updated your profile", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SetUpActivity.this, Profile.class));
 
 
@@ -168,7 +164,7 @@ public class SetUpActivity extends AppCompatActivity {
 
 
         }else{
-            Toast.makeText(this, "You can't update your profile without choosing and image and a username", Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "You can't update your profile without choosing and image and a username", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -204,22 +200,19 @@ public class SetUpActivity extends AppCompatActivity {
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextCPassword.getText().toString();
-        final String Surname = editTextSname.getText().toString().trim();
         final String faculty = mFaculty.getSelectedItem().toString().trim();
         final String department = mDepartment.getSelectedItem().toString().trim();
-        final String firstName = editTextFname.getText().toString().trim();
-        final String lastName = editTextLname.getText().toString().trim();
         final String matriculationNo = editTextMatriculation.getText().toString().trim();
         final String gender = spinnerGender.getSelectedItem().toString().trim();
         final String phone = editTextPhone.getText().toString().trim();
         final String emergencyNo = editTextEmergencyNo.getText().toString().trim();
-        final String username = setUName.getText().toString().trim();
+        final String studentFullName = fullName.getText().toString().trim();
 
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(confirmPassword) && mImageUri != null
-                && !TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(matriculationNo) && !TextUtils.isEmpty(phone)
-                && !TextUtils.isEmpty(emergencyNo) && !TextUtils.isEmpty(username)){
-            if (password.equals(confirmPassword) && !TextUtils.isEmpty(Surname)){
+                && !TextUtils.isEmpty(studentFullName) && !TextUtils.isEmpty(matriculationNo) && !TextUtils.isEmpty(phone)
+                && !TextUtils.isEmpty(emergencyNo)){
+            if (password.equals(confirmPassword)){
                 mProgress.show();
                 mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -232,10 +225,7 @@ public class SetUpActivity extends AppCompatActivity {
                                 String downloadUrl = taskSnapshot.getDownloadUrl().toString();
 
                                 mDatabaseStudents.child(user_id).child("email").setValue(email);
-                                mDatabaseStudents.child(user_id).child("username").setValue(username);
-                                mDatabaseStudents.child(user_id).child("surname").setValue(Surname);
-                                mDatabaseStudents.child(user_id).child("firstName").setValue(firstName);
-                                mDatabaseStudents.child(user_id).child("lastName").setValue(lastName);
+                                mDatabaseStudents.child(user_id).child("fullName").setValue(studentFullName);
                                 mDatabaseStudents.child(user_id).child("department").setValue(department);
                                 mDatabaseStudents.child(user_id).child("faculty").setValue(faculty);
                                 mDatabaseStudents.child(user_id).child("gender").setValue(gender);
@@ -243,11 +233,17 @@ public class SetUpActivity extends AppCompatActivity {
                                 mDatabaseStudents.child(user_id).child("phone").setValue(phone);
                                 mDatabaseStudents.child(user_id).child("emergencyNo").setValue(emergencyNo);
 
-                                mDatabaseStudents.child(user_id).child("image").setValue(downloadUrl);
-                                mProgress.dismiss();
-                                Toast.makeText(SetUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(SetUpActivity.this, LoginActivity.class));
-                                sendEmailVerification();
+                                mDatabaseStudents.child(user_id).child("image").setValue(downloadUrl)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    mProgress.dismiss();
+                                                    sendEmailVerification();
+
+                                                }
+                                            }
+                                        });
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -275,14 +271,16 @@ public class SetUpActivity extends AppCompatActivity {
             }
 
         }else {
-            Toast.makeText(this, "Sorry can register with empty field(s) or without picture", Toast.LENGTH_SHORT).show();
+            Toasty.error(this, "Sorry can register with empty field(s) or without picture",Toast.LENGTH_SHORT).show();
+
         }
 
     }
 
     //send verification to the user registering
     private void sendEmailVerification(){
-        verificationProgress.setMessage("Sending verification mail...");
+        verificationProgress.setTitle("Verifying your email");
+        verificationProgress.setMessage("please wait...");
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null){
             verificationProgress.show();
@@ -291,8 +289,9 @@ public class SetUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()){
                         verificationProgress.dismiss();
-                        Toast.makeText(SetUpActivity.this, "Registered successfully!! check verification mail sent to you", Toast.LENGTH_SHORT).show();
+                        Toasty.success(SetUpActivity.this, "Registered successfully!! check verification mail sent to you", Toast.LENGTH_SHORT).show();
                         mAuth.signOut();
+                        startActivity(new Intent(SetUpActivity.this, LoginActivity.class));
                         finish();
 
                     }

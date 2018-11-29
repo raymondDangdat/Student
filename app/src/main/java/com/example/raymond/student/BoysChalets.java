@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ public class BoysChalets extends AppCompatActivity {
     private RecyclerView recyclerView_boys_chalets;
     RecyclerView.LayoutManager layoutManager;
 
+    private Toolbar boysChaletToolBar;
+
 
 
     @Override
@@ -39,6 +42,15 @@ public class BoysChalets extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         boysChalets = database.getReference("boysHostel");
+
+
+        //toolbar
+        //initialize our toolBar
+        boysChaletToolBar = findViewById(R.id.boysChatlet_tool_bar);
+        setSupportActionBar(boysChaletToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Boys Chalets");
 
 
         //load boys chalets

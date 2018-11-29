@@ -4,11 +4,6 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_users"
-            android:icon="@drawable/ic_group"
-            android:iconTint="@android:color/white"
-            android:title="View Users" />
 
         <item
             android:id="@+id/nav_apply"
@@ -23,10 +18,16 @@
             android:title="Hostel Rules" />
 
         <item
-            android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_chat"
+            android:id="@+id/nav_accommmodation"
+            android:icon="@drawable/ic_home_black_24dp"
             android:iconTint="@android:color/white"
-            android:title="Chat" />
+            android:title="Accommodation Status" />
+        <item
+            android:id="@+id/nav_roommates"
+            android:icon="@drawable/ic_group"
+            android:iconTint="@android:color/white"
+            android:title="Roommates" />
+
         <item
             android:id="@+id/nav_chat2"
             android:icon="@drawable/ic_chat"

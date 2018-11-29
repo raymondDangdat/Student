@@ -28,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import es.dmoral.toasty.Toasty;
+
 public class LoginActivity extends AppCompatActivity {
     private TextView mRegister;
     private EditText mEmail, mPassword;
@@ -102,14 +104,14 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     mProgress.dismiss();
-                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toasty.error(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             });
 
 
         }else{
-            Toast.makeText(this, "Sorry, can't login with empty field(s)", Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "Sorry, can't login with empty field(s)", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import es.dmoral.toasty.Toasty;
+
 public class PlasuChat extends AppCompatActivity {
     private Toolbar mToolbar;
     private ViewPager myViewPager;
@@ -50,7 +52,10 @@ public class PlasuChat extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("PLASU Chat");
+
 
         myViewPager = findViewById(R.id.main_tabs_pager);
         myTabsAccessorAdapter = new TabsAccessorAdapter(getSupportFragmentManager());
@@ -149,7 +154,7 @@ public class PlasuChat extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String groupName = groupNameField.getText().toString();
                 if (TextUtils.isEmpty(groupName)){
-                    Toast.makeText(PlasuChat.this, "Please write group name", Toast.LENGTH_SHORT).show();
+                    Toasty.info(PlasuChat.this, "Please write group name", Toast.LENGTH_SHORT).show();
                 }else {
                     createNewGroup(groupName);
                 }
@@ -170,7 +175,7 @@ public class PlasuChat extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(PlasuChat.this, groupName+ " was created successfully... ", Toast.LENGTH_SHORT).show();
+                            Toasty.success(PlasuChat.this, groupName+ " was created successfully... ", Toast.LENGTH_SHORT).show();
                         }
 
                     }

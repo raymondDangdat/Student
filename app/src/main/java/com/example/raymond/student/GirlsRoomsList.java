@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -40,6 +41,8 @@ public class GirlsRoomsList extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference girlsRooms;
 
+    private Toolbar roomToolBar;
+
     String chaletId = "";
     private FirebaseRecyclerAdapter<GirlsRooms, GirlsRoomViewHolder> adapter;
 
@@ -65,6 +68,15 @@ public class GirlsRoomsList extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+
+        //initialize our toolBar
+        roomToolBar = findViewById(R.id.girlsRoom_tool_bar);
+        setSupportActionBar(roomToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Girls Rooms");
+
 
         //get intent here
         if (getIntent() != null)
@@ -184,7 +196,7 @@ public class GirlsRoomsList extends AppCompatActivity {
 
 
 
-    private void loadListRoom(String chaletId) {
+    private void loadListRoom(final String chaletId) {
         FirebaseRecyclerOptions<GirlsRooms>options = new FirebaseRecyclerOptions.Builder<GirlsRooms>()
                 .setQuery(girlsRooms.orderByChild("room").equalTo(chaletId), GirlsRooms.class)
                 .build();
@@ -203,6 +215,7 @@ public class GirlsRoomsList extends AppCompatActivity {
                     public void onClick(View view, int position, boolean isLongClick) {
                         Intent roomDetail = new Intent(GirlsRoomsList.this, GirlsRoomDetail.class);
                         roomDetail.putExtra("roomId", adapter.getRef(position).getKey()); //send room id to new activity
+                        roomDetail.putExtra("chaletId", chaletId);
                         startActivity(roomDetail);
 
                     }
@@ -218,30 +231,7 @@ public class GirlsRoomsList extends AppCompatActivity {
                 return viewHolder;
             }
         };
-//        adapter = new FirebaseRecyclerAdapter<GirlsRooms, GirlsRoomViewHolder>(
-//                GirlsRooms.class,
-//                R.layout.girls_rooms_item,
-//                GirlsRoomViewHolder.class,
-//                girlsRooms
-//        ) {
-//            @Override
-//            protected void populateViewHolder(GirlsRoomViewHolder viewHolder, GirlsRooms model, int position) {
-//                viewHolder.txtRoomDescription.setText(model.getRoomDescription());
-//                viewHolder.txtBedNumber.setText(model.getBedNumber());
-//                Picasso.get().load(model.getImage()).into(viewHolder.imageView);
-////                Picasso.with(getBaseContext()).load(model.getImage())
-////                        .into(viewHolder.imageView);
-//
-//                viewHolder.setItemClickListener(new ItemClickListener() {
-//                    @Override
-//                    public void onClick(View view, int position, boolean isLongClick) {
-//                        Intent roomDetail = new Intent(GirlsRoomsList.this, GirlsRoomDetail.class);
-//                        roomDetail.putExtra("roomId", adapter.getRef(position).getKey()); //send room id to new activity
-//                        startActivity(roomDetail);
-//                    }
-//                });
-//            }
-//        };
+
         //set adapter
         recyclerView.setAdapter(adapter);
         adapter.startListening();

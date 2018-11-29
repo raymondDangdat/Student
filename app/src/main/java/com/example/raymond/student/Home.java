@@ -59,14 +59,7 @@ public class Home extends AppCompatActivity
 
         final FirebaseUser user = mAuth.getCurrentUser();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Soon you will use this to apply for hostel", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,11 +81,10 @@ public class Home extends AppCompatActivity
                 email.setText(user.getEmail());
                 fullName = headerView.findViewById(R.id.fullName);
 //                fullName.setText(dataSnapshot.child(uId).child("surname").getValue(String.class));
-                String surname = dataSnapshot.child(uId).child("surname").getValue(String.class);
-                String firstName = dataSnapshot.child(uId).child("firstName").getValue(String.class);
-                String lastName = dataSnapshot.child(uId).child("lastName").getValue(String.class);
+                String fullname = dataSnapshot.child(uId).child("fullName").getValue(String.class);
 
-                fullName.setText(surname + " " + firstName + " " + lastName);
+
+                fullName.setText(fullname);
 
                 imgProfile = headerView.findViewById(R.id.image_view_profile);
                 String profileUri = dataSnapshot.child(uId).child("image").getValue(String.class);
@@ -155,8 +147,10 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_users) {
-            // Handle the camera action
+        if (id == R.id.nav_roommates) {
+            // check roommates of a particular student
+            Intent roomies = new Intent(Home.this, Roommates.class);
+            startActivity(roomies);
         } else if (id == R.id.nav_apply) {
             //run a check for the gender of the current user
             students.addValueEventListener(new ValueEventListener() {
@@ -187,8 +181,8 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_settings) {
 
-        }else if(id == R.id.nav_chat){
-            //startActivity(new Intent(Home.this, ChatActivity.class));
+        }else if(id == R.id.nav_accommmodation){
+            startActivity(new Intent(Home.this, AccommodationStatusActivity.class));
 
         }else if (id == R.id.nav_chat2){
             startActivity(new Intent(Home.this, PlasuChat.class));

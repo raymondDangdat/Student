@@ -37,6 +37,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import es.dmoral.toasty.Toasty;
+
 public class BoysRoomDetail extends AppCompatActivity {
     private TextView room_name, status, bed_number;
     private ImageView img_room;
@@ -44,6 +46,7 @@ public class BoysRoomDetail extends AppCompatActivity {
     private Button btnApply1;
 
     private String roomId = "";
+    private String chaletId = "";
 
     private FirebaseDatabase database;
     private DatabaseReference boysRooms, eligibleStudents;
@@ -66,7 +69,7 @@ public class BoysRoomDetail extends AppCompatActivity {
         //int firebase
         database = FirebaseDatabase.getInstance();
         boysRooms = database.getReference("BoysRooms");
-        eligibleStudents = database.getReference().child("Eligible Students");
+        eligibleStudents = database.getReference().child("confirmJambNumbers");
 
 
         //get  currentUser
@@ -103,12 +106,16 @@ public class BoysRoomDetail extends AppCompatActivity {
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppbar);
 
         //get room id from Intent
-        if (getIntent() != null)
+        if (getIntent() != null){
             roomId = getIntent().getStringExtra("roomId");
-        if (!roomId.isEmpty()){
-            getDetailRoom(roomId);
+            chaletId = getIntent().getStringExtra("chaletId");
+            if (!roomId.isEmpty()){
+                getDetailRoom(roomId);
+            }
 
         }
+
+
     }
 
     private void showAlertDialog() {
@@ -137,17 +144,18 @@ public class BoysRoomDetail extends AppCompatActivity {
                 final String jamNo = editTextJambNo.getText().toString().trim();
                 if (TextUtils.isEmpty(jamNo)){
                     mDialog.dismiss();
-                    Toast.makeText(BoysRoomDetail.this, "You can not proceed without providing yoour JAMB number", Toast.LENGTH_LONG).show();
+                    Toasty.info(BoysRoomDetail.this, "You can not proceed without providing yoour JAMB number", Toast.LENGTH_LONG).show();
                 }else {
 
 
-                    eligibleStudents.addValueEventListener(new ValueEventListener() {
+                    eligibleStudents.child(jamNo).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child(jamNo).exists()){
-                                final JambConfirmation jambConfirmation = dataSnapshot.child(jamNo).getValue(JambConfirmation.class);
-                                jambConfirmation.setJambNo(jamNo);
-                                if (jambConfirmation.getStatus().equals("valid")){
+                            if (dataSnapshot.exists()){
+                                final String status = dataSnapshot.child("status").getValue().toString();
+                                //final JambConfirmation jambConfirmation = dataSnapshot.child(jamNo).getValue(JambConfirmation.class);
+                                //jambConfirmation.setJambNo(jamNo);
+                                if (status.equals("valid")){
                                     //yet to apply for hostel
 
                                     students.addValueEventListener(new ValueEventListener() {
@@ -156,9 +164,7 @@ public class BoysRoomDetail extends AppCompatActivity {
 
 
                                             final String email = dataSnapshot.child(uId).child("email").getValue(String.class);
-                                            final String surname = dataSnapshot.child(uId).child("surname").getValue(String.class);
-                                            final String firstName = dataSnapshot.child(uId).child("firstName").getValue(String.class);
-                                            final String lastName = dataSnapshot.child(uId).child("lastName").getValue(String.class);
+                                            final String fullName = dataSnapshot.child(uId).child("fullName").getValue(String.class);
                                             final String department = dataSnapshot.child(uId).child("department").getValue(String.class);
                                             final String matNo = dataSnapshot.child(uId).child("matNo").getValue(String.class);
                                             final String phone = dataSnapshot.child(uId).child("phone").getValue(String.class);
@@ -167,7 +173,7 @@ public class BoysRoomDetail extends AppCompatActivity {
                                             final String level = dataSnapshot.child(uId).child("level").getValue(String.class);
                                             final String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
 
-                                            if (!surname.isEmpty() || !firstName.isEmpty() || !lastName.isEmpty() || !department.isEmpty() || !matNo.isEmpty() ||
+                                            if (!fullName.isEmpty() || !department.isEmpty() || !matNo.isEmpty() ||
                                                     !phone.isEmpty() || !emergenNo.isEmpty() || !profileUri.isEmpty() || !gender.isEmpty()){
                                                 boysRooms.child(roomId).addValueEventListener(new ValueEventListener() {
                                                     @Override
@@ -177,6 +183,9 @@ public class BoysRoomDetail extends AppCompatActivity {
 
                                                         String chaletName = girlsRooms.getRoomDescription();
                                                         String bed_number = girlsRooms.getBedNumber();
+                                                        applications.child(uId).child("department").setValue(department);
+                                                        applications.child(uId).child("chaletId").setValue(chaletId);
+                                                        applications.child(uId).child("level").setValue(level);
                                                         applications.child(uId).child("JAMB").setValue(jamNo);
                                                         applications.child(uId).child("chaletName").setValue(chaletName);
                                                         applications.child(uId).child("bedNumber").setValue(bed_number);
@@ -184,9 +193,7 @@ public class BoysRoomDetail extends AppCompatActivity {
                                                         applications.child(uId).child("chaletName").setValue(chaletName);
                                                         applications.child(uId).child("bedNumber").setValue(bed_number);
                                                         applications.child(uId).child("phone").setValue(phone);
-                                                        applications.child(uId).child("surname").setValue(surname);
-                                                        applications.child(uId).child("firstName").setValue(firstName);
-                                                        applications.child(uId).child("lastName").setValue(lastName);
+                                                        applications.child(uId).child("fullName").setValue(fullName);
                                                         applications.child(uId).child("parentNo").setValue(emergenNo);
                                                         applications.child(uId).child("profilePic").setValue(profileUri);
                                                         applications.child(uId).child("gender").setValue(gender);
@@ -213,7 +220,7 @@ public class BoysRoomDetail extends AppCompatActivity {
 
                                                     @Override
                                                     public void onCancelled(DatabaseError databaseError) {
-                                                        Toast.makeText(BoysRoomDetail.this, "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                                        Toasty.error(BoysRoomDetail.this, "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
                                                     }
                                                 });
@@ -226,7 +233,7 @@ public class BoysRoomDetail extends AppCompatActivity {
 
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
-                                            Toast.makeText(BoysRoomDetail.this, "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toasty.error(BoysRoomDetail.this, "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
                                         }
                                     });
@@ -234,15 +241,15 @@ public class BoysRoomDetail extends AppCompatActivity {
 
 
 
-                                }else if (jambConfirmation.getStatus().equals("invalid")){
+                                }else{
                                     mDialog.dismiss();
-                                    Toast.makeText(BoysRoomDetail.this, "Sorry this JAMB number has already been used", Toast.LENGTH_SHORT).show();
+                                    Toasty.warning(BoysRoomDetail.this, "Sorry this JAMB number has already been used", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
 
                             }else {
                                 mDialog.dismiss();
-                                Toast.makeText(BoysRoomDetail.this, "Invalid JAMB number please check and type again", Toast.LENGTH_SHORT).show();
+                                Toasty.error(BoysRoomDetail.this, "Invalid JAMB number please check and type again", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                         }
@@ -274,7 +281,7 @@ public class BoysRoomDetail extends AppCompatActivity {
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(BoysRoomDetail.this, "Application successful", Toast.LENGTH_SHORT).show();
+                        Toasty.success(BoysRoomDetail.this, "Application successful", Toast.LENGTH_SHORT).show();
                         getDetailRoom(roomId);
                     }
                 }

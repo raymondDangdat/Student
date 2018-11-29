@@ -35,35 +35,6 @@
         android:layout_alignParentEnd="true"
         app:fabSize="mini"
         />
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/chat_linear_layout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="@android:color/background_light"-->
-        <!--android:orientation="horizontal">-->
-        <!--<EditText-->
-            <!--android:id="@+id/input_message"-->
-            <!--android:layout_width="330dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="Type your message here"-->
-            <!--android:padding="15dp"-->
-            <!--/>-->
-
-        <!--<ImageButton-->
-            <!--android:id="@+id/send_message_button"-->
-            <!--android:layout_width="60dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/send_message"-->
-            <!--/>-->
-
-
-    <!--</LinearLayout>-->
-
-
-    <!--</LinearLayout>-->
     <android.support.design.widget.TextInputLayout
         android:id="@+id/message"
         android:layout_width="match_parent"

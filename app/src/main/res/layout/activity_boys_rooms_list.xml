@@ -7,13 +7,20 @@
     android:background="@drawable/apply"
     tools:context=".BoysRoomsList">
 
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/boysRoom_tool_bar">
+
+    </include>
+
+
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchBar"
-        android:layout_alignParentTop="true"
         app:mt_speechMode="false"
         app:mt_hint="Enter room name"
+        android:layout_below="@+id/boysRoom_tool_bar"
         />
 
 

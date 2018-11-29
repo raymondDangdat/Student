@@ -31,6 +31,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class SettingsActivity extends AppCompatActivity {
     private Button updateAccountButton;
@@ -97,7 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
         settingsToolBar = findViewById(R.id.settings_tool_bar);
         setSupportActionBar(settingsToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Profile Settings");
 
     }
@@ -129,7 +130,7 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(SettingsActivity.this, "Profile image uploaded successfully", Toast.LENGTH_SHORT).show();
+                            Toasty.info(SettingsActivity.this, "Profile image uploaded successfully", Toast.LENGTH_SHORT).show();
                             String downloadUrl = task.getResult().getDownloadUrl().toString();
                             chatUsersRef.child(currentUserId).child("image").setValue(downloadUrl)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -137,11 +138,11 @@ public class SettingsActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
                                                 progressDialog.dismiss();
-                                                Toast.makeText(SettingsActivity.this, "Image saved successfully", Toast.LENGTH_SHORT).show();
+                                                Toasty.info(SettingsActivity.this, "Image saved successfully", Toast.LENGTH_SHORT).show();
                                             }else{
                                                 progressDialog.dismiss();
                                                 String message = task.getException().toString();
-                                                Toast.makeText(SettingsActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                                Toasty.error(SettingsActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
@@ -149,7 +150,7 @@ public class SettingsActivity extends AppCompatActivity {
                         }else {
                             progressDialog.dismiss();
                             String message = task.getException().toString();
-                            Toast.makeText(SettingsActivity.this, "ERROR: " + message, Toast.LENGTH_SHORT).show();
+                            Toasty.error(SettingsActivity.this, "ERROR: " + message, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -162,9 +163,9 @@ public class SettingsActivity extends AppCompatActivity {
         String setUserName = editTextUserName.getText().toString();
         String setUserStatus = editTextStatus.getText().toString();
         if (TextUtils.isEmpty(setUserName)){
-            Toast.makeText(this, "Please your username is required", Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "Please your username is required", Toast.LENGTH_SHORT).show();
         }if (TextUtils.isEmpty(setUserStatus)){
-            Toast.makeText(this, "Please write your status", Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "Please write your status", Toast.LENGTH_SHORT).show();
         }else {
             HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserId);
@@ -176,12 +177,12 @@ public class SettingsActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                Toast.makeText(SettingsActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                                Toasty.success(SettingsActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
                                 Intent mainActivity = new Intent(SettingsActivity.this, PlasuChat.class);
                                 startActivity(mainActivity);
                             }else {
                                 String message = task.getException().toString();
-                                Toast.makeText(SettingsActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                Toasty.error(SettingsActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -212,7 +213,7 @@ public class SettingsActivity extends AppCompatActivity {
                             editTextStatus.setText(retrievedUserStatus);
                         }else {
                             editTextUserName.setVisibility(View.VISIBLE);
-                            Toast.makeText(SettingsActivity.this, "Please set and update your profile information", Toast.LENGTH_SHORT).show();
+                            Toasty.info(SettingsActivity.this, "Please set and update your profile information", Toast.LENGTH_SHORT).show();
 
 
                         }

@@ -4,21 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/hostel"
-    tools:context=".GirlsChalets">
+    tools:context=".Roommates">
 
     <include
         layout="@layout/app_bar_layout"
-        android:id="@+id/girlChalet_tool_bar">
-
+        android:id="@+id/roommates_toolbar"
+        >
     </include>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_girls_chalets"
-        android:scrollbars="vertical"
+        android:id="@+id/roommates_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/girlChalet_tool_bar">
+        android:layout_below="@+id/roommates_toolbar"
+        android:layout_alignParentStart="true"
+        android:padding="8dp"
+        android:layout_centerVertical="true"
+        >
 
     </android.support.v7.widget.RecyclerView>
 
