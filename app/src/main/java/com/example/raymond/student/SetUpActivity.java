@@ -53,6 +53,8 @@ public class SetUpActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST_CODE = 1;
     private Uri mImageUri = null;
 
+    private android.support.v7.widget.Toolbar registerToolBar;
+
     ProgressDialog mProgress;
     private ProgressDialog verificationProgress;
 
@@ -66,12 +68,13 @@ public class SetUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_up);
 
-//        //Action bar
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setTitle("Registration");
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setDisplayShowHomeEnabled(true);
-//
+        //initialize our toolBar
+        registerToolBar = findViewById(R.id.register_toolbar);
+        setSupportActionBar(registerToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Register With Correct Credentials");
+
 
 
         mProgress = new ProgressDialog(this);

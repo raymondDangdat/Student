@@ -142,7 +142,7 @@ public class GirlsRoomDetail extends AppCompatActivity {
                                 final String status = dataSnapshot.child("status").getValue().toString();
                                 //final JambConfirmation jambConfirmation = dataSnapshot.child(jamNo).getValue(JambConfirmation.class);
                                 //jambConfirmation.setJambNo(jamNo);
-                                if (status.equals("valid")){
+                                if (status.equals("Unused")){
                                     //yet to apply for hostel
 
                                     students.addValueEventListener(new ValueEventListener() {
@@ -190,7 +190,7 @@ public class GirlsRoomDetail extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()){
                                                                         //change the status to invalid so that same matriculation number cannot be used twice
-                                                                        eligibleStudents.child(jamNo).child("status").setValue("invalid").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        eligibleStudents.child(jamNo).child("status").setValue("Used").addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                             @Override
                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                 if (task.isSuccessful()){

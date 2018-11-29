@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmail, mPassword;
     private Button mButtonLogin;
 
+    private Toolbar loginToolBar;
+
     private ProgressDialog mProgress;
 
 
@@ -57,6 +60,14 @@ public class LoginActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.editTextEmail);
         mPassword = findViewById(R.id.editTextPassword);
         mButtonLogin = findViewById(R.id.buttonLogin);
+
+        //initialize our toolBar
+        loginToolBar = findViewById(R.id.login_toolbar);
+        setSupportActionBar(loginToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setTitle("Accommodation At Your Comfort");
+
 
 
         mProgress = new ProgressDialog(this);

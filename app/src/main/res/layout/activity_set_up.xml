@@ -7,15 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".SetUpActivity">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
         android:orientation="vertical">
+        <include
+            layout="@layout/app_bar_layout"
+            android:id="@+id/register_toolbar"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_margin="16dp"
             android:id="@+id/setUpImageButton"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_account"/>
@@ -34,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_margin="16dp"
             android:entries="@array/faculties">
 
         </Spinner>
@@ -43,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_margin="16dp"
             android:text="@string/selectdepartment"
             android:textColor="@android:color/white"
             android:textSize="15sp"
@@ -50,6 +57,7 @@
 
         <Spinner
             android:id="@+id/department"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -63,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_margin="16dp"
             android:drawableLeft="@drawable/ic_account_box"
             android:hint="Full Name"
             android:background="@drawable/edit_rounded"
@@ -73,6 +82,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:layout_marginTop="20dp"
             android:text="@string/select_your_gender"
             android:textColor="@android:color/white"
@@ -81,6 +91,7 @@
 
         <Spinner
             android:id="@+id/gender"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -93,11 +104,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Level"
+            android:layout_margin="16dp"
             android:textSize="15sp"
             android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/level"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -116,6 +129,7 @@
             android:hint="@string/studentmatricno"
             android:inputType="text"
             android:maxLength="19"
+            android:layout_margin="16dp"
             android:background="@drawable/edit_rounded"
             android:padding="10dp"
             android:textAllCaps="true" />
@@ -125,6 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_margin="16dp"
             android:drawableLeft="@drawable/ic_phone"
             android:hint="@string/enter_your_phone_number"
             android:inputType="phone"
@@ -139,6 +154,7 @@
             android:drawableLeft="@drawable/ic_phone"
             android:layout_marginTop="20dp"
             android:hint="@string/contact_number_incase_of_emergency"
+            android:layout_margin="16dp"
             android:background="@drawable/edit_rounded"
             android:padding="10dp"
             android:inputType="phone"
@@ -154,6 +170,7 @@
             android:padding="10dp"
             android:drawableLeft="@drawable/ic_email"
             android:hint="Email"
+            android:layout_margin="16dp"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -163,6 +180,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/edit_rounded"
             android:drawableLeft="@drawable/ic_lock"
+            android:layout_margin="16dp"
             android:padding="10dp"
             android:hint="Password"
             android:inputType="textPassword" />
@@ -172,6 +190,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_lock"
+            android:layout_margin="16dp"
             android:layout_marginTop="20dp"
             android:hint="Confirm Your Password"
             android:background="@drawable/edit_rounded"
@@ -184,6 +203,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_margin="16dp"
             android:background="@drawable/rounded_button"
             android:text="Register"
             android:textColor="@android:color/white"
@@ -193,6 +213,9 @@
             android:id="@+id/textViewSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/rounded_button"
+            android:padding="12dp"
             android:layout_marginTop="20dp"
             android:text="@string/already_registered_sign_in_here"
             android:textAlignment="center"

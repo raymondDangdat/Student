@@ -58,8 +58,8 @@
                     android:text="08000000000"
                     android:textAlignment="textStart"
                     android:layout_marginLeft="8dp"
-                    android:textSize="16sp"
-                    android:textStyle="italic"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -86,8 +86,8 @@
                     android:text="08061560311"
                     android:textAlignment="textStart"
                     android:layout_marginLeft="8dp"
-                    android:textSize="16sp"
-                    android:textStyle="italic"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -104,8 +104,8 @@
                     android:text="Chalet Name"
                     android:textAlignment="textStart"
                     android:layout_marginLeft="8dp"
-                    android:textSize="16sp"
-                    android:textStyle="italic"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/bedNumber"
@@ -115,8 +115,8 @@
                     android:text="Bed Number"
                     android:textAlignment="textStart"
                     android:layout_marginLeft="8dp"
-                    android:textSize="16sp"
-                    android:textStyle="italic"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
         </LinearLayout>
