@@ -32,7 +32,7 @@
             android:id="@+id/nav_chat2"
             android:icon="@drawable/ic_chat"
             android:iconTint="@android:color/white"
-            android:title="Chat 2" />
+            android:title="PLASU HOOK UP" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"

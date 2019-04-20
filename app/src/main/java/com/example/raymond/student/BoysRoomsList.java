@@ -73,13 +73,15 @@ public class BoysRoomsList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Boys Rooms");
+//
+//        //get intent here
+//        if (getIntent() != null)
+//            chaletId = getIntent().getStringExtra("chaletId");
+//        if (!chaletId.isEmpty() &&  chaletId != null){
+//            //loadListRoom(chaletId);
+//        }
 
-        //get intent here
-        if (getIntent() != null)
-            chaletId = getIntent().getStringExtra("chaletId");
-        if (!chaletId.isEmpty() &&  chaletId != null){
-            loadListRoom(chaletId);
-        }
+        loadAvailableRooms();
 
         materialSearchBar = findViewById(R.id.searchBar);
         loadSuggest();
@@ -137,6 +139,48 @@ public class BoysRoomsList extends AppCompatActivity {
 
     }
 
+    private void loadAvailableRooms() {
+        FirebaseRecyclerOptions<BoysRooms> options =
+                new FirebaseRecyclerOptions.Builder<BoysRooms>()
+                        .setQuery(boysRooms.orderByChild("status").equalTo("available"), BoysRooms.class)
+                        .build();
+        adapter = new FirebaseRecyclerAdapter<BoysRooms, BoysRooomViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull BoysRooomViewHolder holder, int position, @NonNull BoysRooms model) {
+                holder.txtRoomDescription.setText(model.getRoomDescription());
+                holder.txtBedNumber.setText(model.getBedNumber());
+                holder.txtStatus.setText(model.getStatus());
+                Picasso.get().load(model.getImage()).placeholder(R.drawable.hostel).into(holder.imageView);
+
+                holder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        Intent roomDetail = new Intent(BoysRoomsList.this, BoysRoomDetail.class);
+                        roomDetail.putExtra("roomId", adapter.getRef(position).getKey());//send room id to new activitystartActivity(roomDetail);
+                        roomDetail.putExtra("chaletId",chaletId );
+                        startActivity(roomDetail);
+
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public BoysRooomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.boys_roms_item, parent, false);
+                BoysRooomViewHolder viewHolder = new BoysRooomViewHolder(view);
+                return viewHolder;
+
+            }
+        };
+
+
+        //set adapter
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+    }
+
     private void startSearch(CharSequence text) {
         FirebaseRecyclerOptions<BoysRooms> options = new
                 FirebaseRecyclerOptions.Builder<BoysRooms>()
@@ -147,6 +191,7 @@ public class BoysRoomsList extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull BoysRoomViewHolder holder, int position, @NonNull BoysRooms model) {
                 holder.txtRoomDescription.setText(model.getRoomDescription());
                 holder.txtBedNumber.setText(model.getBedNumber());
+                holder.txtStatus.setText(model.getStatus());
                 Picasso.get().load(model.getImage()).into(holder.imageView);
 
                holder.setItemClickListener(new ItemClickListener() {

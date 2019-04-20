@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,17 +37,29 @@ public class Home extends AppCompatActivity
     private FirebaseUser currentUser;
     String uId;
 
+    //rework
+    private ImageButton img_apply, img_status, img_roommates, img_rules;
+    private TextView txt_username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        //rework
+        img_apply = findViewById(R.id.img_applyAccommodation);
+        img_roommates = findViewById(R.id.img_roommates);
+        img_rules = findViewById(R.id.img_hostelRules);
+        img_status = findViewById(R.id.img_accommodationStatus);
+        txt_username = findViewById(R.id.txt_username);
 
         mAuth = FirebaseAuth.getInstance();
         String userEmail = mAuth.getCurrentUser().getEmail();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Welcome " + userEmail );
+        toolbar.setTitle("PLASU Hostel" );
         setSupportActionBar(toolbar);
 
         database = FirebaseDatabase.getInstance();
@@ -58,6 +71,60 @@ public class Home extends AppCompatActivity
         uId = mAuth.getUid();
 
         final FirebaseUser user = mAuth.getCurrentUser();
+
+
+        //rewwork....setOnclickListener to all image buttons
+        img_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this, AccommodationStatusActivity.class));
+            }
+        });
+
+        img_roommates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this, Roommates.class));
+            }
+        });
+
+        img_apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //run a check for the gender of the current user
+                students.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
+
+                        if (gender.equals("Male")){
+                            Intent applIntent = new Intent(Home.this, BoysRoomsList.class);
+                            startActivity(applIntent);
+
+                        }else{
+                            Intent applIntent = new Intent(Home.this, GirlsRoomsList.class);
+                            startActivity(applIntent);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+        img_rules.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this, ViewRules.class));
+            }
+        });
+
+
 
 
 
@@ -159,11 +226,11 @@ public class Home extends AppCompatActivity
                     String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
 
                     if (gender.equals("Male")){
-                        Intent applIntent = new Intent(Home.this, BoysChalets.class);
+                        Intent applIntent = new Intent(Home.this, BoysRoomsList.class);
                         startActivity(applIntent);
 
                     }else{
-                        Intent applIntent = new Intent(Home.this, GirlsChalets.class);
+                        Intent applIntent = new Intent(Home.this, GirlsRoomsList.class);
                         startActivity(applIntent);
 
                     }

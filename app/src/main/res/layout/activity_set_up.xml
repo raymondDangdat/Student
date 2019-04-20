@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/hostel"
     android:layout_height="match_parent"
     tools:context=".SetUpActivity">
 
@@ -29,8 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Choose your faculty below"
-            android:textColor="@android:color/white"
+            android:layout_margin="16dp"
+            android:text="Select your faculty below"
+            android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -51,7 +51,7 @@
             android:layout_marginTop="20dp"
             android:layout_margin="16dp"
             android:text="@string/selectdepartment"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -85,7 +85,7 @@
             android:layout_margin="16dp"
             android:layout_marginTop="20dp"
             android:text="@string/select_your_gender"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_margin="16dp"
-            android:drawableLeft="@drawable/ic_phone"
+            android:drawableLeft="@drawable/phone"
             android:hint="@string/enter_your_phone_number"
             android:inputType="phone"
             android:background="@drawable/edit_rounded"
@@ -151,7 +151,7 @@
             android:id="@+id/editTextEmergencyNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_phone"
+            android:drawableLeft="@drawable/phone"
             android:layout_marginTop="20dp"
             android:hint="@string/contact_number_incase_of_emergency"
             android:layout_margin="16dp"
@@ -179,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/edit_rounded"
-            android:drawableLeft="@drawable/ic_lock"
+            android:drawableLeft="@drawable/password"
             android:layout_margin="16dp"
             android:padding="10dp"
             android:hint="Password"
@@ -189,7 +189,7 @@
             android:id="@+id/editTextCPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_lock"
+            android:drawableLeft="@drawable/password"
             android:layout_margin="16dp"
             android:layout_marginTop="20dp"
             android:hint="Confirm Your Password"

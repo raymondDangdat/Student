@@ -23,6 +23,23 @@
         <item>300</item>
         <item>400</item>
     </string-array>
+    <string-array name="arts">
+        <item>English</item>
+        <item>History</item>
+        <item>Theatre Art</item>
+    </string-array>
+
+    <string-array name="natural">
+        <item>Microbiology</item>
+        <item>Biochemistry</item>
+        <item>Chemistry</item>
+        <item>Geography</item>
+        <item>Mathematics</item>
+        <item>Computer Science</item>
+        <item>Microbiology</item>
+
+
+    </string-array>
 
     <string-array name="departments">
         <item>Accounting</item>
@@ -34,10 +51,11 @@
         <item>Geography</item>
         <item>History</item>
         <item>Mathematics</item>
-        <item>Mass Communication</item>
+        <item>Economics</item>
         <item>Microbiology</item>
         <item>Management</item>
-        <item>Physics</item>
+        <item>Mass Communication</item>
+        <item>Microbiology</item>
         <item>Political Science</item>
         <item>Psychology</item>
         <item>Sociology</item>
@@ -48,6 +66,19 @@
         <item>Management Science</item>
         <item>Natural And Applied Science</item>
         <item>Social Science</item>
+    </string-array>
+
+    <string-array name="management">
+        <item>Accounting</item>
+        <item>Management</item>
+    </string-array>
+
+    <string-array name="social">
+        <item>Political Science</item>
+        <item>Psychology</item>
+        <item>Sociology</item>
+        <item>Economics</item>
+        <item>Mass Communication</item>
     </string-array>
     <string name="title_activity_home">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

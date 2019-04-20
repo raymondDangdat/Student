@@ -77,13 +77,15 @@ public class GirlsRoomsList extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Girls Rooms");
 
+//
+//        //get intent here
+//        if (getIntent() != null)
+//            chaletId = getIntent().getStringExtra("chaletId");
+//        if (!chaletId.isEmpty() &&  chaletId != null){
+//            //loadListRoom(chaletId);
+//        }
 
-        //get intent here
-        if (getIntent() != null)
-            chaletId = getIntent().getStringExtra("chaletId");
-        if (!chaletId.isEmpty() &&  chaletId != null){
-            loadListRoom(chaletId);
-        }
+        loadAvailableRooms();
 
         materialSearchBar = findViewById(R.id.searchBar);
         loadSuggest();
@@ -138,6 +140,48 @@ public class GirlsRoomsList extends AppCompatActivity {
         });
     }
 
+    private void loadAvailableRooms() {
+
+        FirebaseRecyclerOptions<GirlsRooms>options = new FirebaseRecyclerOptions.Builder<GirlsRooms>()
+                .setQuery(girlsRooms.orderByChild("status").equalTo("available"), GirlsRooms.class)
+                .build();
+
+
+        adapter = new FirebaseRecyclerAdapter<GirlsRooms, GirlsRoomViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull GirlsRoomViewHolder holder, int position, @NonNull GirlsRooms model) {
+                holder.txtRoomDescription.setText(model.getRoomDescription());
+                holder.txtBedNumber.setText(model.getBedNumber());
+                holder.txtStatus.setText(model.getStatus());
+                Picasso.get().load(model.getImage()).into(holder.imageView);
+
+                holder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        Intent roomDetail = new Intent(GirlsRoomsList.this, GirlsRoomDetail.class);
+                        roomDetail.putExtra("roomId", adapter.getRef(position).getKey()); //send room id to new activity
+                        roomDetail.putExtra("chaletId", chaletId);
+                        startActivity(roomDetail);
+
+                    }
+                });
+            }
+
+
+            @NonNull
+            @Override
+            public GirlsRoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.girls_rooms_item, parent, false);
+                GirlsRoomViewHolder viewHolder = new GirlsRoomViewHolder(view);
+                return viewHolder;
+            }
+        };
+
+        //set adapter
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+    }
+
 
     private void startSearch(CharSequence text) {
         FirebaseRecyclerOptions<GirlsRooms> options = new
@@ -149,6 +193,7 @@ public class GirlsRoomsList extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull GirlsRoomViewHolder holder, int position, @NonNull GirlsRooms model) {
                 holder.txtRoomDescription.setText(model.getRoomDescription());
                 holder.txtBedNumber.setText(model.getBedNumber());
+                holder.txtStatus.setText(model.getStatus());
                 Picasso.get().load(model.getImage()).into(holder.imageView);
 
                 holder.setItemClickListener(new ItemClickListener() {

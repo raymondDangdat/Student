@@ -46,7 +46,6 @@ public class BoysRoomDetail extends AppCompatActivity {
     private Button btnApply1;
 
     private String roomId = "";
-    private String chaletId = "";
 
     private FirebaseDatabase database;
     private DatabaseReference boysRooms, eligibleStudents;
@@ -95,7 +94,22 @@ public class BoysRoomDetail extends AppCompatActivity {
         btnApply1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDialog();
+                applications.child(uId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            Toasty.info(BoysRoomDetail.this, "You have been allocated already please check your status",Toast.LENGTH_LONG).show();
+                        }else {
+                            showAlertDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 
@@ -108,7 +122,6 @@ public class BoysRoomDetail extends AppCompatActivity {
         //get room id from Intent
         if (getIntent() != null){
             roomId = getIntent().getStringExtra("roomId");
-            chaletId = getIntent().getStringExtra("chaletId");
             if (!roomId.isEmpty()){
                 getDetailRoom(roomId);
             }
@@ -117,6 +130,9 @@ public class BoysRoomDetail extends AppCompatActivity {
 
 
     }
+
+    //get the chalet Id
+
 
     private void showAlertDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(BoysRoomDetail.this);
@@ -146,74 +162,85 @@ public class BoysRoomDetail extends AppCompatActivity {
                     mDialog.dismiss();
                     Toasty.info(BoysRoomDetail.this, "You can not proceed without providing yoour JAMB number", Toast.LENGTH_LONG).show();
                 }else {
+                                eligibleStudents.child(jamNo).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()){
+                                            final String status = dataSnapshot.child("status").getValue().toString();
+                                            //final JambConfirmation jambConfirmation = dataSnapshot.child(jamNo).getValue(JambConfirmation.class);
+                                            //jambConfirmation.setJambNo(jamNo);
+                                            if (status.equals("Unused")){
+                                                //yet to apply for hostel
 
-
-                    eligibleStudents.child(jamNo).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()){
-                                final String status = dataSnapshot.child("status").getValue().toString();
-                                //final JambConfirmation jambConfirmation = dataSnapshot.child(jamNo).getValue(JambConfirmation.class);
-                                //jambConfirmation.setJambNo(jamNo);
-                                if (status.equals("valid")){
-                                    //yet to apply for hostel
-
-                                    students.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                                            final String email = dataSnapshot.child(uId).child("email").getValue(String.class);
-                                            final String fullName = dataSnapshot.child(uId).child("fullName").getValue(String.class);
-                                            final String department = dataSnapshot.child(uId).child("department").getValue(String.class);
-                                            final String matNo = dataSnapshot.child(uId).child("matNo").getValue(String.class);
-                                            final String phone = dataSnapshot.child(uId).child("phone").getValue(String.class);
-                                            final String emergenNo = dataSnapshot.child(uId).child("emergencyNo").getValue(String.class);
-                                            final String profileUri = dataSnapshot.child(uId).child("image").getValue(String.class);
-                                            final String level = dataSnapshot.child(uId).child("level").getValue(String.class);
-                                            final String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
-
-                                            if (!fullName.isEmpty() || !department.isEmpty() || !matNo.isEmpty() ||
-                                                    !phone.isEmpty() || !emergenNo.isEmpty() || !profileUri.isEmpty() || !gender.isEmpty()){
-                                                boysRooms.child(roomId).addValueEventListener(new ValueEventListener() {
+                                                students.addValueEventListener(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        final GirlsRooms girlsRooms = dataSnapshot.getValue(GirlsRooms.class);
 
 
-                                                        String chaletName = girlsRooms.getRoomDescription();
-                                                        String bed_number = girlsRooms.getBedNumber();
-                                                        applications.child(uId).child("department").setValue(department);
-                                                        applications.child(uId).child("chaletId").setValue(chaletId);
-                                                        applications.child(uId).child("level").setValue(level);
-                                                        applications.child(uId).child("JAMB").setValue(jamNo);
-                                                        applications.child(uId).child("chaletName").setValue(chaletName);
-                                                        applications.child(uId).child("bedNumber").setValue(bed_number);
-                                                        applications.child(uId).child("email").setValue(email);
-                                                        applications.child(uId).child("chaletName").setValue(chaletName);
-                                                        applications.child(uId).child("bedNumber").setValue(bed_number);
-                                                        applications.child(uId).child("phone").setValue(phone);
-                                                        applications.child(uId).child("fullName").setValue(fullName);
-                                                        applications.child(uId).child("parentNo").setValue(emergenNo);
-                                                        applications.child(uId).child("profilePic").setValue(profileUri);
-                                                        applications.child(uId).child("gender").setValue(gender);
-                                                        applications.child(uId).child("matNo").setValue(matNo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<Void> task) {
-                                                                if (task.isSuccessful()){
-                                                                    //change the status to invalid so that same matriculation number cannot be used twice
-                                                                    eligibleStudents.child(jamNo).child("status").setValue("invalid").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        final String email = dataSnapshot.child(uId).child("email").getValue(String.class);
+                                                        final String fullName = dataSnapshot.child(uId).child("fullName").getValue(String.class);
+                                                        final String department = dataSnapshot.child(uId).child("department").getValue(String.class);
+                                                        final String matNo = dataSnapshot.child(uId).child("matNo").getValue(String.class);
+                                                        final String phone = dataSnapshot.child(uId).child("phone").getValue(String.class);
+                                                        final String emergenNo = dataSnapshot.child(uId).child("emergencyNo").getValue(String.class);
+                                                        final String profileUri = dataSnapshot.child(uId).child("image").getValue(String.class);
+                                                        final String level = dataSnapshot.child(uId).child("level").getValue(String.class);
+                                                        final String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
+
+                                                        if (!fullName.isEmpty() || !department.isEmpty() || !matNo.isEmpty() ||
+                                                                !phone.isEmpty() || !emergenNo.isEmpty() || !profileUri.isEmpty() || !gender.isEmpty()){
+                                                            boysRooms.child(roomId).addValueEventListener(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                    final GirlsRooms girlsRooms = dataSnapshot.getValue(GirlsRooms.class);
+                                                                    final String chaletId = dataSnapshot.child("room").getValue().toString();
+
+                                                                    String chaletName = girlsRooms.getRoomDescription();
+                                                                    String bed_number = girlsRooms.getBedNumber();
+                                                                    applications.child(uId).child("department").setValue(department);
+                                                                    applications.child(uId).child("chaletId").setValue(chaletId);
+                                                                    applications.child(uId).child("level").setValue(level);
+                                                                    applications.child(uId).child("JAMB").setValue(jamNo);
+                                                                    applications.child(uId).child("chaletName").setValue(chaletName);
+                                                                    applications.child(uId).child("bedNumber").setValue(bed_number);
+                                                                    applications.child(uId).child("email").setValue(email);
+                                                                    applications.child(uId).child("chaletName").setValue(chaletName);
+                                                                    applications.child(uId).child("bedNumber").setValue(bed_number);
+                                                                    applications.child(uId).child("phone").setValue(phone);
+                                                                    applications.child(uId).child("fullName").setValue(fullName);
+                                                                    applications.child(uId).child("parentNo").setValue(emergenNo);
+                                                                    applications.child(uId).child("profilePic").setValue(profileUri);
+                                                                    applications.child(uId).child("gender").setValue(gender);
+                                                                    applications.child(uId).child("matNo").setValue(matNo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                         @Override
                                                                         public void onComplete(@NonNull Task<Void> task) {
                                                                             if (task.isSuccessful()){
-                                                                                mDialog.dismiss();
-                                                                                updateRoomDetails(roomId);
+                                                                                //change the status to invalid so that same matriculation number cannot be used twice
+                                                                                eligibleStudents.child(jamNo).child("status").setValue("Used").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                                        if (task.isSuccessful()){
+                                                                                            mDialog.dismiss();
+                                                                                            updateRoomDetails(roomId);
+                                                                                        }
+                                                                                    }
+                                                                                });
                                                                             }
                                                                         }
                                                                     });
+
+
                                                                 }
-                                                            }
-                                                        });
+
+                                                                @Override
+                                                                public void onCancelled(DatabaseError databaseError) {
+                                                                    Toasty.error(BoysRoomDetail.this, "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                                                }
+                                                            });
+
+                                                        }
+
 
 
                                                     }
@@ -225,40 +252,28 @@ public class BoysRoomDetail extends AppCompatActivity {
                                                     }
                                                 });
 
+
+
+
+                                            }else{
+                                                mDialog.dismiss();
+                                                Toasty.warning(BoysRoomDetail.this, "Sorry this JAMB number has already been used", Toast.LENGTH_SHORT).show();
+                                                return;
                                             }
 
-
-
+                                        }else {
+                                            mDialog.dismiss();
+                                            Toasty.error(BoysRoomDetail.this, "Invalid JAMB number please check and type again", Toast.LENGTH_SHORT).show();
+                                            return;
                                         }
+                                    }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                            Toasty.error(BoysRoomDetail.this, "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
 
-                                        }
-                                    });
+                                    }
+                                });
 
-
-
-
-                                }else{
-                                    mDialog.dismiss();
-                                    Toasty.warning(BoysRoomDetail.this, "Sorry this JAMB number has already been used", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-
-                            }else {
-                                mDialog.dismiss();
-                                Toasty.error(BoysRoomDetail.this, "Invalid JAMB number please check and type again", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
                 }
 
                     }
@@ -293,24 +308,29 @@ public class BoysRoomDetail extends AppCompatActivity {
         boysRooms.child(roomId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                BoysRooms boysRooms = dataSnapshot.getValue(BoysRooms.class);
+                if (dataSnapshot.exists()){
+                    BoysRooms boysRooms = dataSnapshot.getValue(BoysRooms.class);
 
-                //set Image
+                    //set Image
 //                Picasso.with(getBaseContext()).load(boysRooms.getImage())
 //                        .into(img_room);
-                Picasso.get().load(boysRooms.getImage()).into(img_room);
-                collapsingToolbarLayout.setTitle(boysRooms.getRoomDescription());
-                room_name.setText(boysRooms.getRoomDescription());
-                bed_number.setText(boysRooms.getBedNumber());
-                status.setText(boysRooms.getStatus());
-                final String Status = boysRooms.getStatus();
+                    Picasso.get().load(boysRooms.getImage()).into(img_room);
+                    collapsingToolbarLayout.setTitle(boysRooms.getRoomDescription());
+                    room_name.setText(boysRooms.getRoomDescription());
+                    bed_number.setText(boysRooms.getBedNumber());
+                    status.setText(boysRooms.getStatus());
+                    final String Status = boysRooms.getStatus();
 
-                if (Status.equals("available")){
-                    btnApply1.setEnabled(true);
-                }else{
-                    btnApply1.setEnabled(false);
-                    btnApply1.setText("ROOM OCCUPIED");
+                    if (Status.equals("available")){
+                        btnApply1.setEnabled(true);
+                    }else{
+                        btnApply1.setEnabled(false);
+                        btnApply1.setText("ROOM OCCUPIED");
+                    }
+                }else {
+                    Toasty.info(BoysRoomDetail.this, "No room details available", Toast.LENGTH_SHORT).show();
                 }
+
 
 
 

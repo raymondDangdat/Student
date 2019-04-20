@@ -80,6 +80,9 @@ public class BoysChalets extends AppCompatActivity {
                     protected void onBindViewHolder(@NonNull BoysChaViewHolder holder, int position, @NonNull com.example.raymond.student.Model.BoysChalets model) {
                         holder.txtChaletName.setText(model.getRoom());
                         Picasso.get().load(model.getImage()).placeholder(R.drawable.hostel).into(holder.imageView);
+                        final String chaletId = adapter.getRef(position).getKey();
+                        holder.txtBedsAvailable.setText(chaletId);
+                        holder.txtBedsAvailable.setText(chaletId);
 
                         holder.setItemClickListener(new ItemClickListener() {
                             @Override
@@ -109,6 +112,7 @@ public class BoysChalets extends AppCompatActivity {
     //static class to take care of viewholder
     public static class BoysChaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
          TextView txtChaletName;
+         TextView txtBedsAvailable;
          ImageView imageView;
 
         private ItemClickListener itemClickListener;
@@ -116,6 +120,7 @@ public class BoysChalets extends AppCompatActivity {
         public BoysChaViewHolder(View itemView) {
             super(itemView);
             txtChaletName = itemView.findViewById(R.id.txtChaletNumber);
+            txtBedsAvailable = itemView.findViewById(R.id.bedsAvailable);
             imageView = itemView.findViewById(R.id.imageViewChalet);
 
             itemView.setOnClickListener(this);
