@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/b"
     android:layout_height="match_parent"
     tools:context=".SetUpActivity">
 
@@ -22,7 +23,7 @@
             android:layout_margin="16dp"
             android:id="@+id/setUpImageButton"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_account"/>
+            android:src="@drawable/images"/>
 
         <TextView
             android:layout_width="match_parent"

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.raymond.student.Interface.ItemClickListener;
 import com.example.raymond.student.Model.BoysRooms;
@@ -22,6 +23,7 @@ import com.example.raymond.student.ViewHolder.BoysRoomViewHolder;
 import com.example.raymond.student.ViewHolder.GirlsRoomViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +35,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class GirlsRoomsList extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -43,7 +47,15 @@ public class GirlsRoomsList extends AppCompatActivity {
 
     private Toolbar roomToolBar;
 
+    private DatabaseReference applications;
+
+
+    private int countBed;
+    private TextView txtBedCount;
+
     String chaletId = "";
+    String uId;
+    private FirebaseAuth mAuth;
     private FirebaseRecyclerAdapter<GirlsRooms, GirlsRoomViewHolder> adapter;
 
 
@@ -59,9 +71,16 @@ public class GirlsRoomsList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_girls_rooms_list);
 
+        mAuth = FirebaseAuth.getInstance();
+        uId = mAuth.getUid();
+
+        txtBedCount = findViewById(R.id.txtBedCount);
+
 
         database = FirebaseDatabase.getInstance();
-        girlsRooms = database.getReference("GirlsRooms");
+        girlsRooms = database.getReference().child("plasuHostel2019").child("hostels").child("girlsHostel").child("GirlsRooms");
+        applications = FirebaseDatabase.getInstance().getReference().child("plasuHostel2019").child("Occupants");
+
 
 
         recyclerView = findViewById(R.id.recycler_girls_rooms);
@@ -75,7 +94,7 @@ public class GirlsRoomsList extends AppCompatActivity {
         setSupportActionBar(roomToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Girls Rooms");
+        getSupportActionBar().setTitle("Girls Bed Spaces");
 
 //
 //        //get intent here
@@ -140,24 +159,64 @@ public class GirlsRoomsList extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        girlsRooms.orderByChild("status").equalTo("available").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    countBed = (int) dataSnapshot.getChildrenCount();
+                    txtBedCount.setText(Integer.toString(countBed));
+
+                }else{
+                    txtBedCount.setText("No Available be");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
     private void loadAvailableRooms() {
 
         FirebaseRecyclerOptions<GirlsRooms>options = new FirebaseRecyclerOptions.Builder<GirlsRooms>()
                 .setQuery(girlsRooms.orderByChild("status").equalTo("available"), GirlsRooms.class)
                 .build();
-
-
         adapter = new FirebaseRecyclerAdapter<GirlsRooms, GirlsRoomViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull GirlsRoomViewHolder holder, int position, @NonNull GirlsRooms model) {
                 holder.txtRoomDescription.setText(model.getRoomDescription());
                 holder.txtBedNumber.setText(model.getBedNumber());
                 holder.txtStatus.setText(model.getStatus());
-                Picasso.get().load(model.getImage()).into(holder.imageView);
+                //Picasso.get().load(model.getImage()).into(holder.imageView);
 
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
+//
+//                        applications.child(uId).addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                if (dataSnapshot.exists()){
+//                                    Toasty.info(GirlsRoomsList.this, "You have been allocated, please check your status",Toast.LENGTH_LONG).show();
+//                                    startActivity(new Intent(GirlsRoomsList.this, Home.class));
+//                                    finish();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//
+//                            }
+//                        });
+
                         Intent roomDetail = new Intent(GirlsRoomsList.this, GirlsRoomDetail.class);
                         roomDetail.putExtra("roomId", adapter.getRef(position).getKey()); //send room id to new activity
                         roomDetail.putExtra("chaletId", chaletId);

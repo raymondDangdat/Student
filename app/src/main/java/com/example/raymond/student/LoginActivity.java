@@ -34,7 +34,7 @@ import es.dmoral.toasty.Toasty;
 public class LoginActivity extends AppCompatActivity {
     private TextView mRegister;
     private EditText mEmail, mPassword;
-    private Button mButtonLogin;
+    private Button mButtonLogin, btnForgotPassword;
 
     private Toolbar loginToolBar;
 
@@ -60,13 +60,14 @@ public class LoginActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.editTextEmail);
         mPassword = findViewById(R.id.editTextPassword);
         mButtonLogin = findViewById(R.id.buttonLogin);
+        btnForgotPassword = findViewById(R.id.buttonForgottenPassword);
 
         //initialize our toolBar
         loginToolBar = findViewById(R.id.login_toolbar);
         setSupportActionBar(loginToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setTitle("Accommodation At Your Comfort");
+        getSupportActionBar().setTitle("Accommodation At Your Convenience");
 
 
 
@@ -78,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, SetUpActivity.class));
+                finish();
             }
         });
 
@@ -88,6 +90,17 @@ public class LoginActivity extends AppCompatActivity {
                 checkLogin();
             }
         });
+
+        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPassword.class));
+            }
+        });
+    }
+
+    private void sendForgotPasswordLink() {
+
     }
 
     private void checkLogin() {
@@ -105,10 +118,14 @@ public class LoginActivity extends AppCompatActivity {
                    // checkUserExist();
 
                     //verify email
-                    checkEmailVerification();
-
-
+                    //checkEmailVerification();
                     mProgress.dismiss();
+
+                    startActivity(new Intent(LoginActivity.this, Home.class));
+                    finish();
+
+
+
 
                 }
             }).addOnFailureListener(new OnFailureListener() {

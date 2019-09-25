@@ -27,10 +27,10 @@
                     android:id="@+id/fullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Full Name"
+                    android:text="Raymond Dangdat Delmut"
                     android:textAlignment="textStart"
                     android:layout_marginLeft="8dp"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -46,19 +46,19 @@
                     android:layout_weight="2"
                     android:text="Contact"
                     android:textAlignment="textStart"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="16sp"
+                    android:layout_marginLeft="3dp"
+                    android:textSize="12sp"
                     android:textStyle="italic"/>
 
                 <TextView
                     android:id="@+id/contact"
                     android:layout_width="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:text="08000000000"
                     android:textAlignment="textStart"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="18sp"
+                    android:layout_marginLeft="3dp"
+                    android:textSize="12sp"
                     android:textStyle="bold"/>
             </LinearLayout>
 
@@ -75,7 +75,7 @@
                     android:text="Parent Contact"
                     android:textAlignment="textStart"
                     android:layout_marginLeft="8dp"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textStyle="italic"/>
 
                 <TextView
@@ -85,8 +85,8 @@
                     android:layout_height="wrap_content"
                     android:text="08061560311"
                     android:textAlignment="textStart"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="18sp"
+                    android:layout_marginLeft="2dp"
+                    android:textSize="12sp"
                     android:textStyle="bold"/>
             </LinearLayout>
 
@@ -104,7 +104,7 @@
                     android:text="Chalet Name"
                     android:textAlignment="textStart"
                     android:layout_marginLeft="8dp"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -115,7 +115,7 @@
                     android:text="Bed Number"
                     android:textAlignment="textStart"
                     android:layout_marginLeft="8dp"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"/>
             </LinearLayout>
 

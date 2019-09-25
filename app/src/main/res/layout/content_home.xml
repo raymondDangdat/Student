@@ -21,7 +21,7 @@
             android:layout_margin="10dp"
             android:fontFamily="sans-serif-condensed"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:gravity="center"
             android:text="Welcome Raymond Dangdat Delmut"/>
 
@@ -84,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/hostel"/>
+                        android:src="@drawable/status"/>
 
                     <TextView
                         android:id="@+id/txt_accommodationStatus"
@@ -130,7 +130,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_group"/>
+                        android:src="@drawable/roommates"/>
 
                     <TextView
                         android:id="@+id/txt_roommates"
@@ -164,7 +164,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/rules"/>
+                        android:src="@drawable/dosanddonts"/>
 
                     <TextView
                         android:id="@+id/txt_hostelRules"

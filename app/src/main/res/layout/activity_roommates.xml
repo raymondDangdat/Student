@@ -8,8 +8,7 @@
 
     <include
         layout="@layout/app_bar_layout"
-        android:id="@+id/roommates_toolbar"
-        >
+        android:id="@+id/roommates_toolbar">
     </include>
 
     <android.support.v7.widget.RecyclerView

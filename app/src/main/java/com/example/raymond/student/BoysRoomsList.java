@@ -21,6 +21,7 @@ import com.example.raymond.student.Model.BoysRooms;
 import com.example.raymond.student.ViewHolder.BoysRoomViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +33,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class BoysRoomsList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -40,6 +43,15 @@ public class BoysRoomsList extends AppCompatActivity {
     private DatabaseReference boysRooms;
 
     private Toolbar roomToolBar;
+    private FirebaseAuth mAuth;
+
+    private DatabaseReference applications;
+
+
+    private int countBed;
+    private TextView txtBedCount;
+
+    String uId;
     
     String chaletId = "";
     private FirebaseRecyclerAdapter<BoysRooms, BoysRooomViewHolder> adapter;
@@ -57,8 +69,17 @@ public class BoysRoomsList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boys_rooms_list);
 
+
+
+        mAuth = FirebaseAuth.getInstance();
+        uId = mAuth.getUid();
+
+        txtBedCount = findViewById(R.id.txtBedCount);
+
         database = FirebaseDatabase.getInstance();
-        boysRooms = database.getReference("BoysRooms");
+        boysRooms = database.getReference().child("plasuHostel2019").child("hostels").child("boysHostel").child("BoysRooms");
+
+        applications = FirebaseDatabase.getInstance().getReference().child("plasuHostel2019").child("Occupants");
 
 
         recyclerView = findViewById(R.id.recycler_boys_rooms);
@@ -72,7 +93,7 @@ public class BoysRoomsList extends AppCompatActivity {
         setSupportActionBar(roomToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Boys Rooms");
+        getSupportActionBar().setTitle("Boys Bed Spaces");
 //
 //        //get intent here
 //        if (getIntent() != null)
@@ -139,6 +160,29 @@ public class BoysRoomsList extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onStart() {
+        boysRooms.orderByChild("status").equalTo("available").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    countBed = (int) dataSnapshot.getChildrenCount();
+                    txtBedCount.setText(Integer.toString(countBed));
+
+                }else{
+                    txtBedCount.setText("No bed available");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        super.onStart();
+    }
+
     private void loadAvailableRooms() {
         FirebaseRecyclerOptions<BoysRooms> options =
                 new FirebaseRecyclerOptions.Builder<BoysRooms>()
@@ -150,7 +194,29 @@ public class BoysRoomsList extends AppCompatActivity {
                 holder.txtRoomDescription.setText(model.getRoomDescription());
                 holder.txtBedNumber.setText(model.getBedNumber());
                 holder.txtStatus.setText(model.getStatus());
-                Picasso.get().load(model.getImage()).placeholder(R.drawable.hostel).into(holder.imageView);
+               // Picasso.get().load(model.getImage()).placeholder(R.drawable.hostel).into(holder.imageView);
+//
+//                applications.child(uId).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.exists()){
+//                            Toasty.info(BoysRoomsList.this, "You have been allocated, please check your status",Toast.LENGTH_LONG).show();
+//
+//                            Intent homeIntent = new Intent(BoysRoomsList.this, Home.class);
+//                            homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(homeIntent);
+//                            finish();
+//
+////                            startActivity(new Intent(BoysRoomsList.this, Home.class));
+////                            finish();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
 
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override

@@ -5,28 +5,28 @@
 
     <group android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/nav_apply"
-            android:icon="@drawable/ic_arrow"
-            android:iconTint="@android:color/white"
-            android:title="Apply Hostel" />
+        <!--<item-->
+            <!--android:id="@+id/nav_apply"-->
+            <!--android:icon="@drawable/ic_arrow"-->
+            <!--android:iconTint="@android:color/white"-->
+            <!--android:title="Apply for Accommodation" />-->
 
-        <item
-            android:id="@+id/nav_rules"
-            android:icon="@drawable/ic_warning"
-            android:iconTint="@android:color/white"
-            android:title="Hostel Rules" />
+        <!--<item-->
+            <!--android:id="@+id/nav_rules"-->
+            <!--android:icon="@drawable/ic_warning"-->
+            <!--android:iconTint="@android:color/white"-->
+            <!--android:title="Hostel Rules" />-->
 
-        <item
-            android:id="@+id/nav_accommmodation"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:iconTint="@android:color/white"
-            android:title="Accommodation Status" />
-        <item
-            android:id="@+id/nav_roommates"
-            android:icon="@drawable/ic_group"
-            android:iconTint="@android:color/white"
-            android:title="Roommates" />
+        <!--<item-->
+            <!--android:id="@+id/nav_accommmodation"-->
+            <!--android:icon="@drawable/ic_home_black_24dp"-->
+            <!--android:iconTint="@android:color/white"-->
+            <!--android:title="Accommodation Status" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_roommates"-->
+            <!--android:icon="@drawable/ic_group"-->
+            <!--android:iconTint="@android:color/white"-->
+            <!--android:title="Roommates" />-->
 
         <item
             android:id="@+id/nav_chat2"
@@ -34,26 +34,17 @@
             android:iconTint="@android:color/white"
             android:title="PLASU HOOK UP" />
         <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings"
+            android:id="@+id/nav_change_password"
+            android:icon="@drawable/ic_lock"
             android:iconTint="@android:color/white"
-            android:title="Settings" />
+            android:title="Reset Password" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_exit"
+            android:iconTint="@android:color/white"
+            android:title="Log out" />
 
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:iconTint="@android:color/white"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_exit"
-                android:iconTint="@android:color/white"
-                android:title="Log out" />
-        </menu>
-    </item>
 
 </menu>

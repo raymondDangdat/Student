@@ -43,7 +43,8 @@ public class Roommates extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
 
-        applications = FirebaseDatabase.getInstance().getReference().child("Applications");
+        applications = FirebaseDatabase.getInstance().getReference().child("plasuHostel2019").child("Occupants");
+
 
         roommatesRecyclerList = findViewById(R.id.roommates_recyclerview);
         roommatesRecyclerList.setLayoutManager(new LinearLayoutManager(this));

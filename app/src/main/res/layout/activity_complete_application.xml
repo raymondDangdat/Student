@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/apply"
     android:layout_height="match_parent"
-    tools:context=".BoysRoomDetail">
-
-
-
+    android:background="@drawable/d"
+    tools:context=".CompleteApplication">
 
 
     <android.support.design.widget.AppBarLayout
@@ -29,7 +27,7 @@
 
             <ImageView
                 android:id="@+id/img_room"
-                android:src="@drawable/d"
+                android:src="@drawable/b"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:contentDescription="@null"
@@ -51,17 +49,17 @@
     </android.support.design.widget.AppBarLayout>
 
     <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/btnApply"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/ic_arrow"-->
-        <!--android:backgroundTint="@android:color/white"-->
-        <!--android:elevation="6dp"-->
-        <!--app:pressedTranslationZ="12dp"-->
-        <!--app:layout_anchor="@id/app_bar_layout"-->
-        <!--app:layout_anchorGravity="bottom|right|end"-->
-        <!--app:useCompatPadding="true"-->
-        <!--/>-->
+    <!--android:id="@+id/btnApply"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/ic_arrow"-->
+    <!--android:backgroundTint="@android:color/white"-->
+    <!--android:elevation="6dp"-->
+    <!--app:pressedTranslationZ="12dp"-->
+    <!--app:layout_anchor="@id/app_bar_layout"-->
+    <!--app:layout_anchorGravity="bottom|right|end"-->
+    <!--app:useCompatPadding="true"-->
+    <!--/>-->
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -134,18 +132,17 @@
                     </LinearLayout>
 
 
+
                     <Button
                         android:id="@+id/btnApply1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginBottom="8dp"
                         android:background="@drawable/rounded_button"
-                        android:text="Apply!"
+                        android:text="Confirm!"
                         android:textColor="@android:color/white"
                         />
+
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -153,6 +150,5 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
 
 </android.support.design.widget.CoordinatorLayout>

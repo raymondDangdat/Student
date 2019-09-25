@@ -82,7 +82,7 @@ public class SetUpActivity extends AppCompatActivity {
         verificationProgress = new ProgressDialog(this);
 
 
-        mDatabaseStudents = FirebaseDatabase.getInstance().getReference().child("Students");
+        mDatabaseStudents = FirebaseDatabase.getInstance().getReference().child("plasuHostel2019").child("users").child("Students");
         mAuth = FirebaseAuth.getInstance();
         mStorageImage = FirebaseStorage.getInstance().getReference().child("StudentsProfile");
 
@@ -107,6 +107,7 @@ public class SetUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SetUpActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
@@ -243,7 +244,18 @@ public class SetUpActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()){
                                                     mProgress.dismiss();
-                                                    sendEmailVerification();
+                                                    Toasty.success(SetUpActivity.this, "Registered successfully!!, proceed to login", Toast.LENGTH_SHORT).show();
+
+                                                    Intent loginIntent = new Intent(SetUpActivity.this, LoginActivity.class);
+                                                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(loginIntent);
+                                                    finish();
+
+
+//                                                    startActivity(new Intent(SetUpActivity.this, LoginActivity.class));
+//                                                    finish();
+
+                                                    //sendEmailVerification();
 
                                                 }
                                             }
@@ -275,7 +287,7 @@ public class SetUpActivity extends AppCompatActivity {
             }
 
         }else {
-            Toasty.error(this, "Sorry can register with empty field(s) or without picture",Toast.LENGTH_SHORT).show();
+            Toasty.info(this, "Sorry can register with empty field(s) or without picture",Toast.LENGTH_SHORT).show();
 
         }
 

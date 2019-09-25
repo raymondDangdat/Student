@@ -5,18 +5,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/hostel"
+    android:background="@drawable/c"
     tools:context=".WelcomeScreen">
 
     <TextView
+        android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textSize="30sp"
-        android:text="Welcome to PLASU Hostel Allocation System"
-        android:textStyle="italic"
+        android:text="Welcome to PLASU Hostel"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Allocation System"
+        android:layout_below="@+id/text1"
+        android:textStyle="italic"
+        android:textSize="30sp"
+        android:layout_marginTop="8dp"
+        android:textColor="#ffff"
+        android:gravity="center_horizontal"/>
 
 
 

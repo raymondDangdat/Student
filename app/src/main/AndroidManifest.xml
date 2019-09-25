@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/chostel"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/chostel"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".WelcomeScreen">
@@ -25,7 +25,8 @@
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
         <activity
             android:name=".SetUpActivity"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName=".LoginActivity"
+            />
         <activity android:name=".Profile" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ViewUsersActivity" />
@@ -42,7 +43,7 @@
             android:parentActivityName=".BoysChalets" />
         <activity
             android:name=".BoysRoomDetail"
-            android:parentActivityName=".BoysRoomsList" />
+            android:parentActivityName=".Home" />
         <activity android:name=".BoysRoomApplication" />
         <activity
             android:name=".GirlsChalets"
@@ -61,7 +62,7 @@
         <activity android:name=".ChatRegisterActivity" />
         <activity
             android:name=".SettingsActivity"
-            android:parentActivityName=".PlasuChat" />
+            android:parentActivityName=".Home" />
         <activity android:name=".GroupChatActivity" />
         <activity android:name=".PhoneLoginActivity" />
         <activity
@@ -73,13 +74,20 @@
             android:parentActivityName=".PlasuChat" />
         <activity
             android:name=".AccommodationStatusActivity"
-            android:parentActivityName=".Home" />
+            android:parentActivityName=".Home"/>
         <activity
             android:name=".Roommates"
             android:parentActivityName=".Home" />
         <activity android:name=".JambValidity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ViewRules"></activity>
+        <activity android:name=".ViewRules"
+            android:parentActivityName=".Home"/>
+        <activity android:name=".ChangePassword"
+            android:parentActivityName=".Home"/>
+        <activity android:name=".ForgotPassword" />
+        <activity android:name=".CompleteApplication" />
+        <activity android:name=".StepOneApplication"
+            android:parentActivityName=".Home"/>
     </application>
 
 </manifest>

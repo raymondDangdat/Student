@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,10 +27,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import es.dmoral.toasty.Toasty;
+
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseDatabase database;
-    private DatabaseReference students;
+    private DatabaseReference students, occupants;
     private FirebaseAuth mAuth;
     private TextView fullName, email;
     private ImageView imgProfile;
@@ -63,7 +66,9 @@ public class Home extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         database = FirebaseDatabase.getInstance();
-        students = database.getReference("Students");
+
+        occupants = FirebaseDatabase.getInstance().getReference().child("plasuHostel2019").child("Occupants");
+        students = FirebaseDatabase.getInstance().getReference().child("plasuHostel2019").child("users").child("Students");
         students.keepSynced(true);
 
 
@@ -71,6 +76,19 @@ public class Home extends AppCompatActivity
         uId = mAuth.getUid();
 
         final FirebaseUser user = mAuth.getCurrentUser();
+
+        students.child(uId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String retrievedUsername = dataSnapshot.child("fullName").getValue(String.class);
+                txt_username.setText(retrievedUsername);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         //rewwork....setOnclickListener to all image buttons
@@ -91,22 +109,16 @@ public class Home extends AppCompatActivity
         img_apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //run a check for the gender of the current user
-                students.addValueEventListener(new ValueEventListener() {
+                occupants.child(uId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
+                        if (dataSnapshot.exists()){
+                            startActivity(new Intent(Home.this, AccommodationStatusActivity.class));
 
-                        if (gender.equals("Male")){
-                            Intent applIntent = new Intent(Home.this, BoysRoomsList.class);
-                            startActivity(applIntent);
 
-                        }else{
-                            Intent applIntent = new Intent(Home.this, GirlsRoomsList.class);
-                            startActivity(applIntent);
-
+                        }else {
+                            startActivity(new Intent(Home.this, StepOneApplication.class));
                         }
-
                     }
 
                     @Override
@@ -114,6 +126,29 @@ public class Home extends AppCompatActivity
 
                     }
                 });
+//                //run a check for the gender of the current user
+//                students.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
+//
+//                        if (gender.equals("Male")){
+//                            Intent applIntent = new Intent(Home.this, BoysRoomsList.class);
+//                            startActivity(applIntent);
+//
+//                        }else{
+//                            Intent applIntent = new Intent(Home.this, GirlsRoomsList.class);
+//                            startActivity(applIntent);
+//
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
             }
         });
 
@@ -145,6 +180,7 @@ public class Home extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 View headerView = navigationView.getHeaderView(0);
                 email = headerView.findViewById(R.id.email);
+
                 email.setText(user.getEmail());
                 fullName = headerView.findViewById(R.id.fullName);
 //                fullName.setText(dataSnapshot.child(uId).child("surname").getValue(String.class));
@@ -202,7 +238,17 @@ public class Home extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(new Intent(Home.this, ChangePassword.class));
+        }else if (id == R.id.nav_logout){
+            mAuth.getCurrentUser();
+            mAuth.signOut();
+            finish();
+            Intent signoutIntent = new Intent(Home.this, LoginActivity.class);
+            signoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(signoutIntent);
+            finish();
+
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -214,53 +260,74 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_roommates) {
-            // check roommates of a particular student
-            Intent roomies = new Intent(Home.this, Roommates.class);
-            startActivity(roomies);
-        } else if (id == R.id.nav_apply) {
-            //run a check for the gender of the current user
-            students.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
-
-                    if (gender.equals("Male")){
-                        Intent applIntent = new Intent(Home.this, BoysRoomsList.class);
-                        startActivity(applIntent);
-
-                    }else{
-                        Intent applIntent = new Intent(Home.this, GirlsRoomsList.class);
-                        startActivity(applIntent);
-
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-
-        } else if (id == R.id.nav_rules) {
-
-        } else if (id == R.id.nav_settings) {
-
-        }else if(id == R.id.nav_accommmodation){
-            startActivity(new Intent(Home.this, AccommodationStatusActivity.class));
-
-        }else if (id == R.id.nav_chat2){
+//        if (id == R.id.nav_roommates) {
+//            // check roommates of a particular student
+//            Intent roomies = new Intent(Home.this, Roommates.class);
+//            startActivity(roomies);
+//        } else if (id == R.id.nav_apply) {
+//            occupants.child(uId).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    if (dataSnapshot.exists()){
+//                        startActivity(new Intent(Home.this, AccommodationStatusActivity.class));
+//
+//
+//                    }else {
+//                        startActivity(new Intent(Home.this, StepOneApplication.class));
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//            //run a check for the gender of the current user
+////            students.addValueEventListener(new ValueEventListener() {
+////                @Override
+////                public void onDataChange(DataSnapshot dataSnapshot) {
+////                    String gender = dataSnapshot.child(uId).child("gender").getValue(String.class);
+////
+////                    if (gender.equals("Male")){
+////                        Intent applIntent = new Intent(Home.this, BoysRoomsList.class);
+////                        startActivity(applIntent);
+////
+////                    }else{
+////                        Intent applIntent = new Intent(Home.this, GirlsRoomsList.class);
+////                        startActivity(applIntent);
+////
+////                    }
+////
+////                }
+////
+////                @Override
+////                public void onCancelled(DatabaseError databaseError) {
+////
+////                }
+////            });
+//        } else if (id == R.id.nav_rules) {
+//
+//        }else if(id == R.id.nav_accommmodation){
+//
+//            startActivity(new Intent(Home.this, AccommodationStatusActivity.class));
+//
+//
+if (id == R.id.nav_chat2){
             startActivity(new Intent(Home.this, PlasuChat.class));
-        }else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_logout) {
+        }else if (id == R.id.nav_logout) {
             mAuth.getCurrentUser();
             mAuth.signOut();
             finish();
-            startActivity(new Intent(Home.this, LoginActivity.class));
+            Intent signoutIntent = new Intent(Home.this, LoginActivity.class);
+            signoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(signoutIntent);
+            finish();
 
+
+            //startActivity(new Intent(Home.this, LoginActivity.class));
+
+        }else if (id == R.id.nav_change_password){
+            startActivity(new Intent(Home.this, ChangePassword.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

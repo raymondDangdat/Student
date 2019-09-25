@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/hostel"
+    android:background="@drawable/c"
     tools:context=".LoginActivity">
     <include
         layout="@layout/app_bar_layout"
@@ -24,7 +24,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="raymonddangdat@gmail.com"
+            android:text=""
             android:inputType="textEmailAddress"
             android:drawableLeft="@drawable/ic_email"
             android:background="@drawable/edit_rounded"
@@ -36,7 +36,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="smart001"
+            android:text=""
             android:inputType="textPassword"
             android:background="@drawable/edit_rounded"
             android:padding="10dp"
@@ -51,6 +51,17 @@
             android:textAllCaps="false"
             android:layout_height="wrap_content"
             android:text="Login"/>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/buttonForgottenPassword"
+            android:layout_width="match_parent"
+            android:background="@drawable/rounded_button"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password?"/>
         <TextView
             android:id="@+id/textviewRegister"
             android:layout_width="match_parent"
