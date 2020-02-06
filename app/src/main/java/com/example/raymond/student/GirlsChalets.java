@@ -182,8 +182,8 @@ public class GirlsChalets extends AppCompatActivity {
             itemView.setOnClickListener(this);
         }
 
-        public void setItemClickListener(ItemClickListener itemClickListener) {
-            this.itemClickListener = itemClickListener;
+       public void setItemClickListener(ItemClickListener itemClickListener) {
+             this.itemClickListener = itemClickListener;
         }
 
 
